@@ -1,167 +1,258 @@
 <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Bienvenido</h1>
+          <div class="d-sm-flex align-items-center justify-content-between mb-4 mr-3">
+            <h1 class="h3 mb-0 text-gray-800">Boleta de Venta</h1>
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+              <i class="fas fa-download fa-sm text-white-50"></i>
+              Generar Reporte</a>
           </div>
 
-          <form action="#">
-
-            <div class="form-group row">
-              <div class="col-4">
-                <div class="row">
-                  <!--Numero de documento-->
-                  <label for="inputDocumento" class="col-6 col-form-label">Documento:</label>
-                  <input type="text" class="col-6 form-control" id="inputDocumento">
-                </div>
+          <form class="needs-validation" novalidate>
+            <!--Numero de documento-->
+            <div class="form-group form-row">
+              <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
+              <div class="col mr-3">
+                <input type="text" class="form-control" id="inputDocumento" minlength="8" maxlength="11" onkeypress="v_document(event)" required>
+                <div class="valid-feedback">¡Correcto!</div>
+                <div class="invalid-feedback">Ingresar documento</div>
               </div>
+
+              <!--Button verify-->
               <div class="col-8">
+                <button type="button" class="btn btn-success btn-circle btn-sm" onclick="v_data()"><i class="fas fa-search"></i></button>
               </div>
             </div>
 
-            <div class="form-group row">
-              <div class="col">
-                <div class="row">
-                  <!--Emisor-->
-                  <label for="inputCliente" class="col-2 col-form-label">Cliente:</label>
-                  <input type="text" class="col-4 form-control" id="inputCliente">
-                </div>
+            <!--Emisor-->
+            <div class="form-group form-row">
+              <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
+              <div class="col mr-3">
+                <input type="text" class="form-control" id="inputCliente" disabled required>
+                <div class="valid-feedback">¡Correcto!</div>
+                <div class="invalid-feedback">Ingresar el nombre</div>
               </div>
-              
             </div>
 
+            <!--Dirección-->
+            <div class="form-group form-row">
+              <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
+              <div class="col mr-3">
+                <input type="text" class="form-control" id="inputDireccion" disabled required>
+                <div class="valid-feedback">¡Correcto!</div>
+                <div class="invalid-feedback">Ingresar la dirección</div>
+              </div>
+            </div>
 
+            <div class="form-group form-row">
+              <!--Modo de pago-->
+              <label for="inputPago" class="col-2 col-form-label">Modo de Pago:</label>
+              <div class="col mr-3">
+                <select class="form-control" id="inputPago" disabled required>
+                  <option>Contado</option>
+                  <option>Crédito</option>
+                </select>
+                <div class="valid-feedback">¡Correcto!</div>
+                <div class="invalid-feedback">Seleccionar una opción</div>
+              </div>
 
-            <div class="form-group row">
               <div class="col-6">
-                <div class="row">
-                  <!--Tipo Moneda-->
-                  <label for="inputMoneda" class="col-4 col-form-label">Tipo de Moneda:</label>
-                  <input type="text" class="col-8 form-control" id="inputMoneda">
+                <div class="form-row">
+                  <!--Fecha-->
+                  <label for="inputFecha" class="col-4 ml-5 col-form-label">Fecha:</label>
+                  <div class="col mr-3">
+                    <div class="input-group date" id="datetimepickerF" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#datetimepickerF" disabled required />
+                      <div class="input-group-append" data-target="#datetimepickerF" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                      <div class="valid-feedback">
+                        ¡Correcto!
+                      </div>
+                      <div class="invalid-feedback">
+                        Ingresar la fecha
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
             <!--Tabla de Items-->
-            <div class="card shadow my-4">
-              <div class="card-header py-3">
-                <div class="row align-items-end">
-                  <div class="col-8">
-                    <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
-                  </div>
-                  <div class="col-4">
-                    <button class="btn btn-primary"><i class="fa fa-plus"></i> Adicionar</button>
-                    <button class="btn btn-success"><i class="fa fa-tag"></i> Editar</button>
-                    <button class="btn btn-danger"><i class="fa fa-times"></i> Eliminar</button>
+            <div class="card shadow mb-4 mr-3">
+
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 mb-3">
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal">Agregar</button>
                   </div>
                 </div>
-              </div>
-              <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                       <tr>
-                        <th>Bien/Servicio</th>
-                        <th>Gravado/Exonerado</th>
-                        <th>Unidad Medida</th>
                         <th>Cantidad</th>
-                        <th>Descripcion</th>
-                        <th>Precio Unitario</th>
-                        <th>Total</th>
+                        <th>Unidad Medida</th>
+                        <th>Descripción</th>
+                        <th>P. Unitario</th>
+                        <th>Importe</th>
                       </tr>
                     </thead>
 
                     <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                      <tr data-toggle="collapse" data-target="#collapseExample">
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                       </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                      <div class="collapse" id="collapseExample">
+                        <div class=""></div>
+                      </div>
+                      <tr data-toggle="collapse" data-target="#collapseExample">
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                       </tr>
-                      <tr>
+                      <tr data-toggle="collapse" data-target="#collapseExample">
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
+                      </tr>
+                      <tr data-toggle="collapse" data-target="#collapseExample">
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                       </tr>
                     </tbody>
+                    <div class="collapse" id="collapseExample">
+                      <div class="card card-body">
+                        <div class="row justify-content-end">
+                          <div>
+                            <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i></button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-minus-circle"></i></button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
                   </table>
                 </div>
-                <div class="row mt-3 justify-content-start">
-                  <!--Subtotal-->
-                  <label for="inputSub" class="col-2 col-form-label">Subtotal:</label>
-                  <input type="text" class="col-2 form-control" id="inputSub">
-                </div>
-                <div class="row justify-content-start">
-                  <!--Otros cargos-->
-                  <label for="inputCargos" class="col-2 col-form-label">Cargos:</label>
-                  <input type="text" class="col-2 form-control" id="inputCargos">
-                </div>
-                <div class="row justify-content-start">
-                  <!--Otros tributos-->
-                  <label for="inputTributos" class="col-2 col-form-label">Tributos:</label>
-                  <input type="text" class="col-2 form-control" id="inputTributos">
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="row mt-3 justify-content-end">
-                    <!--Subtotal-->
-                    <label for="inputSubtotal" class="col-2 col-form-label">Subtotal:</label>
-                    <input type="text" class="col-2 form-control" id="inputSubtotal">
-      
-                </div>
-                <div class="row justify-content-end">
-                    <!--Descuentos-->
-                    <label for="inputDescuentos" class="col-2 col-form-label">Descuentos:</label>
-                    <input type="text" class="col-2 form-control" id="inputDescuentos">
-      
-                </div>
-                <div class="row justify-content-end">
-                    <!--IGV-->
-                    
-                    <label for="inputIGV" class="col-2 col-form-label">IGV:</label>
-                    <input type="text" class="col-2 form-control" id="inputIGV">
-      
-                </div>
-                <div class="row justify-content-end">
-                    <!--Importe Total-->
-                    <label for="inputImporte" class="col-2 col-form-label">Importe Total:</label>
-                    <input type="text" class="col-2 form-control" id="inputImporte">
-      
-                </div>
-              </div>
-            </div>
 
+                <div class="form-row">
+                  <!--Importe Total-->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col">
+                        <button class="btn btn-sm btn-primary" type="button"><i class="fa fa-check-circle"></i>
+                          Registrar Boleta</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="row mr-1 justify-content-end">
+                      <label for="inputTotal" class="col-6 col-form-label">Total:</label>
+                      <input type="text" class="col  form-control" id="inputTotal" disabled>
+                    </div>
+                  </div>
+
+                </div>
 
           </form>
+          <!-- End of form -->
 
         </div>
-        <!-- /.container-fluid -->
-        
-
       </div>
-      <!-- End of Main Content -->
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- AddModal-->
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Items</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="needs-validation" novalidate>
+
+            <div class="form-group form-row">
+              <label for="inputCantidad" class="col-4 col-form-label">Cantidad:</label>
+              <input type="text" class="col-8 form-control mb-2" id="inputCantidad" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar cantidad</div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="inputUnidad" class="col-4 col-form-label">Unidad de Medida:</label>
+              <select class="col-8 form-control mb-2" id="inputUnidad" required>
+                <option value="1">LATA</option>
+                <option value="2">KILO</option>
+                <option value="3">TONELADA</option>
+              </select>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Seleccionar Medida</div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="inputDescripcion" class="col-4 col-form-label">Descripcion:</label>
+              <select class="col-8 form-control mb-2" id="inputDescripcion" required>
+                <option value="1">Objeto 1</option>
+                <option value="2">Objeto 2</option>
+                <option value="3">Objeto 3</option>
+              </select>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Seleccionar medida</div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="inputValor" class="col-4 col-form-label">Valor Unitario:</label>
+              <input type="text" class="col-8 form-control mb-2" id="inputValor" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar valor unitario</div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="inputMonto" class="col-4 col-form-label">Monto Total:</label>
+              <input type="text" class="col-8 form-control" id="inputMonto" disabled>
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="button" data-dismiss="modal">Aceptar</button>
+          <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal-->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar el elemento?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Seleccione "Si" para eliminar la fila, sino Cancelar.</div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="button" data-dismiss="modal">Si</button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>

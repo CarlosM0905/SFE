@@ -12,16 +12,19 @@ const app = express();
 
 // settings
 // Establece un puerto (4000) si es que no hay uno en sistema
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 5000);
 
 // __dirname devuelve la direccion de la carpeta actual
 // equivale a src/views
+// uno es el objeto de la aplicacion
+// y el otro es la carpeta de las vistas
 app.set('views', path.join(__dirname, 'views'));
 
 // Manejador de vistas
 // Setea plantilla principal, direccion de plantillas, parciales, las extensiones de los archivos, y la direccion de las 
 // funciones que se usaran de handlebars
 // El modulo path une  directorios
+// Configuracion de Handlebars
 app.engine('.hbs', exphbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
@@ -30,6 +33,7 @@ app.engine('.hbs', exphbs({
     helpers: require('./lib/handlebars')
 }));
 
+// Se establece handlebars como manejador de vistas
 app.set('view engine','.hbs');
 
 // Middlewares 

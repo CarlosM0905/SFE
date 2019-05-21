@@ -1,116 +1,157 @@
 <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-0">
-            <h1 class="h3 mb-0 text-gray-800">Generar Factura</h1>
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Factura</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+              <i class="fas fa-download fa-sm text-white-50"></i>
+              Generar Reporte</a>
           </div>
-          <hr>
-          <div class="d-sm-flex align-items-center justify-content-between mb-3">
-            <h4 class="h4 mb-0 text-gray-600">Datos necesarios</h4> 
-          </div>
-          <!--Formulario Factura electronica-->
           <div class="form-factura">
-            
-            <form action="#">
-              <div class="form-group">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" checked type="radio" name="inlineRadioOptions" id="inlineRadioNatural"
-                    value="option1">
-                  <label class="form-check-label" for="inlineRadioNatural">Natural</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioJuridica"
-                    value="option2">
-                  <label class="form-check-label" for="inlineRadioNatural">Juridica</label>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-4">
-                  <div class="row">
+
+            <form class="needs-validation" action="#" novalidate>
+
+              <div class="form-group form-row">
+                <div class="col-xs-12 col-md-6 my-1">
+                  <div class="form-row">
                     <!--Numero de documento-->
-                    <label for="inputDocumento" class="col-6 col-form-label">Documento:</label>
-                    <input type="number" class="col-6 form-control" id="inputDocumento">
+                    <label for="inputDocumento" class="col-4 col-form-label">Documento:</label>
+                    <div class="col-8">
+                      <input type="text" class="form-control" id="inputDocumento" required>
+                      <div class="valid-feedback">
+                        ¡Correcto!
+                      </div>
+                      <div class="invalid-feedback">
+                        Ingresar el documento
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-8">
-                  <div class="row">
-                    <!--Razon Social-->
-                    <label for="inputRazonSocial" class="col-2 col-form-label">Razon Social:</label>
-                    <input type="text" class="col-10 form-control" id="inputRazonSocial">
-                  </div>
-                </div>
-              </div>
 
-
-
-
-              <div class="form-group row">
-                <div class="col-6">
-                  <div class="row">
-                    <!--Emisor-->
-                    <label for="inputEmisor" class="col-4 col-form-label">Emisor:</label>
-                    <input type="text" class="col-8 form-control" id="inputEmisor">
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="row">
-                    <!--Fecha Vencimiento--->
-                    <label for="inputVencimiento" class="col-4 col-form-label">Fecha Vencimiento:</label>
-                    <input type="text" class="col-8 form-control" id="inputVencimiento">
-                  </div>
-                </div>
-              </div>
-
-
-
-              <div class="form-group row">
-                <div class="col-6">
-                  <div class="row">
-                    <!--Tipo Moneda-->
+                <div class="col-xs-12 col-md-6 my-1">
+                  <div class="form-row">
+                    <!--TODO COMBOBOX-->
                     <label for="inputMoneda" class="col-4 col-form-label">Tipo de Moneda:</label>
-                    <input type="text" class="col-8 form-control" id="inputMoneda">
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="row">
-                    <!--Fecha Emision--->
-                    <label for="inputEmision" class="col-4 col-form-label">Fecha Emision:</label>
-                    <input type="text" class="col-8 form-control" id="inputEmision">
+                    <div class="col-8">
+                      <input type="text" class="form-control" id="inputMoneda" required>
+                      <div class="valid-feedback">
+                        ¡Correcto!
+                      </div>
+                      <div class="invalid-feedback">
+                        Ingresar el tipo de moneda
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="row my-3">
+              <div class="form-group form-row">
                 <div class="col">
-                  <button class="btn btn-primary"><i class="fa fa-plus"></i> Registrar</button>
-
+                  <div class="form-row">
+                    <!--Emisor-->
+                    <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
+                    <div class="col-10">
+                      <input type="text" class="form-control" id="inputCliente" required>
+                      <div class="valid-feedback">
+                        ¡Correcto!
+                      </div>
+                      <div class="invalid-feedback">
+                        Ingresar el nombre
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
+              <div class="form-group form-row">
+                <div class="col">
+                  <div class="form-row">
+                    <!--Dirección-->
+                    <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
+                    <div class="col-10">
+                      <input type="text" class="col form-control" id="inputDireccion" required>
+                      <div class="valid-feedback">
+                        ¡Correcto!
+                      </div>
+                      <div class="invalid-feedback">
+                        Ingresar la direccion
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group form-row">
+                <div class="col-12">
+                  <div class="form-row">
+                    <!--Fecha Emision--->
+                    <label for="inputEmision" class="col-4 col-form-label">Fecha de Emisión:</label>
+                    <div class="col-8">
+                      <!--<input type="text" class="form-control" id="inputEmision" required>-->
+                      <div class="input-group date" id="datetimepickerFE" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepickerFE"
+                          required />
+                        <div class="input-group-append" data-target="#datetimepickerFE" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        <div class="valid-feedback">
+                          ¡Correcto!
+                        </div>
+                        <div class="invalid-feedback">
+                          Ingresar la fecha de emision
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+               
+                <!--
+                  <div class="col-6">
+                  <div class="form-row">
+                    
+                    <label for="inputVencimiento" class="col-4 col-form-label">Fecha de Vencimiento:</label>
+                    <div class="col-8">
+    
+                      <div class="input-group date" id="datetimepickerFV" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepickerFV"
+                          required />
+                        <div class="input-group-append" data-target="#datetimepickerFV" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        <div class="valid-feedback">
+                          ¡Correcto!
+                        </div>
+                        <div class="invalid-feedback">
+                          Ingresar la fecha de vencimiento
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                -->
+            
+              </div>
 
               <!--Tabla de Items-->
-              <div class="card shadow my-4">
-                <div class="card-header py-3">
-                  <div class="row align-items-end">
-                    <div class="col-8">
-                      <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
-                    </div>
-                    <div class="col-4">
-                      <button class="btn btn-primary"><i class="fa fa-plus"></i> Adicionar</button>
-                      <button class="btn btn-success"><i class="fa fa-tag"></i> Editar</button>
-                      <button class="btn btn-danger"><i class="fa fa-times"></i> Eliminar</button>
-                    </div>
-                  </div>
-                </div>
+
+              <div class="card shadow mb-4">
+
                 <div class="card-body">
+
                   <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                       <thead>
+                        <div class="row">
+                          <div class="col-12 mb-3">
+                              <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal">Agregar</button>
+                              <button class="btn btn-sm btn-warning">Editar</button>
+                              <button class="btn btn-sm btn-danger">Eliminar</button>
+                          </div>
+                        </div>
                         <tr>
-                          <th>Bien/Servicio</th>
-                          <th>Gravado/Exonerado</th>
-                          <th>Unidad Medida</th>
                           <th>Cantidad</th>
+                          <th>Unidad Medida</th>
                           <th>Descripcion</th>
                           <th>Precio Unitario</th>
                           <th>Total</th>
@@ -124,8 +165,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td></td>
-                          <td></td>
+
                         </tr>
                         <tr>
                           <td></td>
@@ -133,8 +173,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td></td>
-                          <td></td>
+
                         </tr>
                         <tr>
                           <td></td>
@@ -142,8 +181,7 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td></td>
-                          <td></td>
+
                         </tr>
                         <tr>
                           <td></td>
@@ -151,42 +189,48 @@
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td></td>
-                          <td></td>
+
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                </div>
-                <div class="card-footer">
-                  <div class="row mt-3 justify-content-end">
-                      <!--Subtotal-->
-                      <label for="inputSubtotal" class="col-2 col-form-label">Subtotal:</label>
-                      <input type="text" class="col-2 form-control" id="inputSubtotal">
-        
+
+
+                  <div class="row mt-2 mr-2 justify-content-end">
+                    <!--Subtotal-->
+                    <label for="inputSubtotal" class="col-2 col-form-label">Subtotal:</label>
+                    <input type="text" class="col-2 form-control" id="inputSubtotal" disabled>
                   </div>
-                  <div class="row justify-content-end">
-                      <!--Descuentos-->
-                      <label for="inputDescuentos" class="col-2 col-form-label">Descuentos:</label>
-                      <input type="text" class="col-2 form-control" id="inputDescuentos">
-        
+
+                  <div class="row mt-1 mr-2 justify-content-end">
+                    <!--Descuentos-->
+                    <label for="inputDescuentos" class="col-2 col-form-label">Descuentos:</label>
+                    <input type="text" class="col-2 form-control" id="inputDescuentos" disabled>
                   </div>
-                  <div class="row justify-content-end">
-                      <!--IGV-->
-                      <label for="inputIGV" class="col-2 col-form-label">IGV:</label>
-                      <input type="text" class="col-2 form-control" id="inputIGV">
-        
+
+                  <div class="row mt-1 mr-2 justify-content-end">
+                    <!--IGV-->
+                    <label for="inputIGV" class="col-2 col-form-label">IGV(18%):</label>
+                    <input type="text" class="col-2 form-control" id="inputIGV" disabled>
                   </div>
-                  <div class="row justify-content-end">
-                      <!--Importe Total-->
-                      <label for="inputImporte" class="col-2 col-form-label">Importe Total:</label>
-                      <input type="text" class="col-2 form-control" id="inputImporte">
-        
+
+                  <div class="row mt-1 mr-2 justify-content-end">
+                    <!--Importe Total-->
+                    <label for="inputImporte" class="col-2 col-form-label">Importe Total:</label>
+                    <input type="text" class="col-2 form-control" id="inputImporte" disabled>
+                  </div>
+
+                  <div class="row mx-2 mt-2 mb-3 justify-content-start">
+                    <!--Subtotal-->
+                    <label for="inputMonto" class="col-1 col-form-label">Son: </label>
+                    <input type="text" class="col-4 form-control" id="inputMonto" disabled>
+
+                    <button class="btn btn-sm btn-primary ml-3" type="submit"><i class="fa fa-check-circle"></i>
+                      Registrar Factura</button>
+
                   </div>
                 </div>
               </div>
-
-
             </form>
 
 
