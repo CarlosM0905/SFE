@@ -23,6 +23,21 @@
                   </thead>
                   
                   <tbody>
+                    {{#each productos}}
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    {{else}}
+                      <p class="display-3">
+                        No hay productos en el inventario
+                      </p>
+                    {{/each}}
+                    
+                    <!--
+                      
                     <tr>
                       <td>1234567</td>
                       <td>Papel</td>
@@ -100,6 +115,7 @@
                       <td>20</td>
                       <td>100</td>
                     </tr>
+                    -->
                   </tbody>
                 </table>
               </div>
