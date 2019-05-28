@@ -1,28 +1,25 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4 mr-3">
-    <h1 class="h3 mb-0 text-gray-800">Boleta de Venta</h1>
-    <a class="d-none d-sm-inline-block btn btn-sm btn-primary">
-      <i class="fas fa-download fa-sm text-white-50" style="color:white;"></i>
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Boleta</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+      <i class="fas fa-download fa-sm text-white-50"></i>
       Generar Reporte</a>
   </div>
-
-  <form class="needs-validation" novalidate>
+  <form class="needs-validation" method = "POST" novalidate>
     <!--Numero de documento-->
     <div class="form-group form-row">
       <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
       <div class="col mr-3">
-        <input type="text" class="form-control" id="inputDocumento" minlength="8" maxlength="11"
-          onkeypress="v_document(event)" required>
+        <input type="text" name = "documento" class="form-control" id="inputDocumento" minlength="8" maxlength="11" onkeypress="v_document(event)" required>
         <div class="valid-feedback">¡Correcto!</div>
         <div class="invalid-feedback">Ingresar documento</div>
       </div>
 
       <!--Button verify-->
       <div class="col-8">
-        <button type="button" class="btn btn-success btn-circle btn-sm" onclick="v_data()"><i
-            class="fas fa-search"></i></button>
+        <button type="button" class="btn btn-success btn-circle btn-sm" onclick="v_data()"><i class="fas fa-search"></i></button>
       </div>
     </div>
 
@@ -30,7 +27,7 @@
     <div class="form-group form-row">
       <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
       <div class="col mr-3">
-        <input type="text" class="form-control" id="inputCliente" disabled required>
+        <input type="text" name = "nombre" value = "{{name1}}" class="form-control" id="inputCliente" required>
         <div class="valid-feedback">¡Correcto!</div>
         <div class="invalid-feedback">Ingresar el nombre</div>
       </div>
@@ -40,7 +37,7 @@
     <div class="form-group form-row">
       <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
       <div class="col mr-3">
-        <input type="text" class="form-control" id="inputDireccion" disabled required>
+        <input type="text" name= "direccion" value = "{{direccion1}}" class="form-control" id="inputDireccion" required>
         <div class="valid-feedback">¡Correcto!</div>
         <div class="invalid-feedback">Ingresar la dirección</div>
       </div>
@@ -50,7 +47,7 @@
       <!--Modo de pago-->
       <label for="inputPago" class="col-2 col-form-label">Modo de Pago:</label>
       <div class="col mr-3">
-        <select class="form-control" id="inputPago" disabled required>
+        <select class="form-control" id="inputPago" name = "modopago" required>
           <option>Contado</option>
           <option>Crédito</option>
         </select>
@@ -64,8 +61,7 @@
           <label for="inputFecha" class="col-4 ml-5 col-form-label">Fecha:</label>
           <div class="col mr-3">
             <div class="input-group date" id="datetimepickerF" data-target-input="nearest">
-              <input type="text" class="form-control datetimepicker-input" data-target="#datetimepickerF" disabled
-                required />
+              <input type="text" name = "fecha" class="form-control datetimepicker-input" data-target="#datetimepickerF" required />
               <div class="input-group-append" data-target="#datetimepickerF" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
               </div>
@@ -87,10 +83,8 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 mb-3">
-            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-              data-target="#addModal">Agregar</button>
-            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
-              data-target="#deleteModal">Eliminar</button>
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal">Agregar</button>
+            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">Eliminar</button>
 
           </div>
         </div>
@@ -135,16 +129,14 @@
                 <td></td>
               </tr>
             </tbody>
+
             <div class="collapse" id="collapseExample">
               <div class="card card-body">
                 <div class="row justify-content-end">
                   <div>
-                    <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal"
-                      data-target="#addModal"><i class="fa fa-edit"></i></button>
-                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                      data-target="#deleteModal"><i class="fa fa-minus-circle"></i></button>
+                    <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-minus-circle"></i></button>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -182,8 +174,7 @@
 <!-- End of Main Content -->
 
 <!-- AddModal-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -193,7 +184,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="#" class="needs-validation" novalidate>
+        <form action="#" class="needs-validation" method="POST" novalidate>
 
           <div class="form-group form-row">
             <label for="inputCantidad" class="col-4 col-form-label">Cantidad:</label>
@@ -247,8 +238,7 @@
 </div>
 
 <!-- Delete Modal-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

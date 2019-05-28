@@ -21,7 +21,7 @@ app.set('port', process.env.PORT || 5000);
 app.set('views', path.join(__dirname, 'views'));
 
 // Manejador de vistas
-// Setea plantilla principal, direccion de plantillas, parciales, las extensiones de los archivos, y la direccion de las 
+// Setea plantilla principal, direccion de plantillas, parciales, las extensiones de los archivos, y la direccion de las
 // funciones que se usaran de handlebars
 // El modulo path une  directorios
 // Configuracion de Handlebars
@@ -36,29 +36,11 @@ app.engine('.hbs', exphbs({
 // Se establece handlebars como manejador de vistas
 app.set('view engine','.hbs');
 
-// Middlewares 
+// Middlewares
 // Sesion de usuario
-app.use(session({
-    secret: 'carlossession',
-    resave: false,
-    saveUninitialized: false,
-    store: new mysqlStore(database)
-}));
-// Usar mensajes de flash
-app.use(flash());
-// Muestra un mensaje en consola debido a las peticiones HTTP
-app.use(morgan('dev'));
-// Aceptar los datos de los formularios
-app.use(express.urlencoded({extended:false}));
-// Peticiones de JSON 
-app.use(express.json());
 
 // Global variables
 
-app.use((req,res,next)=>{
-    app.locals.success = req.flash('success');
-    next();
-});
 
 // Routes
 // Ruta inicial
@@ -82,5 +64,5 @@ app.use(express.static(path.join(__dirname,'/public')))
 
 // Se solicita el puerto
 app.listen(app.get('port'),()=>{
-    console.log('Server on port', app.get('port')); 
+    console.log('Server on port', app.get('port'));
 });
