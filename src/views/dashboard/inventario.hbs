@@ -18,9 +18,9 @@
               data-target="#deleteModal">Eliminar</button>
                 </div>
               </div>
-              
+
             </div>
-            
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -33,7 +33,7 @@
                       <th>Stock</th>
                     </tr>
                   </thead>
-                  
+
                   <tbody>
                     {{#each resultados}}
                       <tr>
@@ -44,13 +44,13 @@
                         <td>{{pro_stock}}</td>
                       </tr>
                     {{else}}
-                      <p class="display-3">
+                      <h6>
                         No hay productos en el inventario
-                      </p>
+                      </h6>
                     {{/each}}
-                    
+
                     <!--
-                      
+
                     <tr>
                       <td>1234567</td>
                       <td>Papel</td>
@@ -178,7 +178,7 @@
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar el stock</div>
           </div>
-          
+
           <div class="form-group form-row">
             <label for="inputUnidad" class="col-4 col-form-label">Unidad:</label>
             <select class="col-8 form-control mb-2" id="inputUnidad" required>
