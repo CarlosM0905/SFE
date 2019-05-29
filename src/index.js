@@ -39,6 +39,13 @@ app.set('view engine','.hbs');
 // Middlewares
 // Sesion de usuario
 
+// Muestra un mensaje en consola debido a las peticiones HTTP
+app.use(morgan('dev'));
+// Aceptar los datos de los formularios
+app.use(express.urlencoded({extended:false}));
+// Peticiones de JSON 
+app.use(express.json());
+
 // Global variables
 
 
