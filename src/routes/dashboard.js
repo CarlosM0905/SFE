@@ -20,7 +20,7 @@ router.get('/inventario', async (req, res) => {
 });
 
 router.get('/clientes', async (req, res) => {
-  const results = await pool.query('SELECT pe_jur_ruc, pe_jur_razon_social, pe_jur_direccion, pe_jur_email FROM persona_juridica UNION SELECT pe_nat_dni, pe_nat_nombres, pe_nat_direccion, pe_nat_email FROM persona_natural;');
+  const results = await pool.query('SELECT pe_jur_ruc, pe_jur_razon_social, pe_jur_direccion, pe_jur_email FROM persona_juridica UNION SELECT pe_nat_dni,CONCAT(pe_nat_nombres , ' ', pe_nat_apellidos), pe_nat_direccion, pe_nat_email FROM persona_natural');
   res.render('dashboard/clientes', {
     results
   });
