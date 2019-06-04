@@ -14,20 +14,26 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>RUC</th>
+                      <th>RUC/DNI</th>
                       <th>Nombre</th>
                       <th>Dirección</th>
                       <th>Teléfono</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <th>RUC</th>
-                      <th>Nombre</th>
-                      <th>Dirección</th>
-                      <th>Teléfono</th>
-                    </tr>
-                  </tfoot>
+                  <tbody>
+                    {{#each results}}
+                      <tr>
+                        <td>{{pe_jur_ruc}}</td>
+                        <td>{{pe_jur_razon_social}}</td>
+                        <td>{{pe_jur_direccion}}</td>
+                        <td>{{pe_jur_email}}</td>
+                      </tr>
+                    {{else}}
+                      <h6>
+                        No hay clientes registrados.
+                      </h6>
+                    {{/each}}
+<!--
                   <tbody>
                     <tr>
                       <td>2072008723</td>
@@ -88,7 +94,7 @@
                       <td>Casa de Papel SAC</td>
                       <td>Av. German Amenazaga</td>
                       <td>980630721</td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
               </div>

@@ -43,7 +43,7 @@ app.set('view engine','.hbs');
 app.use(morgan('dev'));
 // Aceptar los datos de los formularios
 app.use(express.urlencoded({extended:false}));
-// Peticiones de JSON 
+// Peticiones de JSON
 app.use(express.json());
 
 // Global variables
