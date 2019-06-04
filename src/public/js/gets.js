@@ -23,10 +23,11 @@ function prueba() {
 
     let cell1 = document.createElement('td');
     let input1 = document.createElement('input');
+  //  let btn1 = document.createElement('button');
     input1.name = 'cantidad';
     input1.value = cantidad;
     input1.type = 'hidden';
-    
+
     let cell2 = document.createElement('td');
     let input2 = document.createElement('input');
     input2.name = 'unidad';
@@ -68,7 +69,7 @@ function prueba() {
 function total() {
     let montos = document.getElementsByClassName('monto_total');
     let total = 0;
-    
+
     for (let index = 0; index < montos.length; index++) {
         total += parseInt(montos[index].innerHTML);
     }

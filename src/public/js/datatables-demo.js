@@ -11,7 +11,7 @@ $(document).ready(function () {
         next: "Anterior",
         last: "Ultimo"
       },
-      zeroRecords:    "No hay resultados :("
+      zeroRecords:    "No hay resultados"
     }
   });
 });
