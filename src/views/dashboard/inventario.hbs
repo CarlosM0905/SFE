@@ -1,55 +1,54 @@
 <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Inventario</h1>
-          <p class="mb-4">Productos del inventario en general.</p>
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Inventario</h1>
+  <p class="mb-4">Productos del inventario en general.</p>
 
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <div class="row">
-                <div class="col-md-6">
-                  <h6 class="m-0 font-weight-bold text-primary h5">Productos</h6>
-                </div>
-                <div class="col-md-6 d-flex flex-row-reverse">
-                  <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal"
-              data-target="#addModal">Agregar</button>
-            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
-              data-target="#deleteModal">Eliminar</button>
-                </div>
-              </div>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-6">
+          <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+        </div>
+        <div class="col-md-6 d-flex flex-row-reverse">
 
-            </div>
+          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">Eliminar</button>
+          <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal" data-target="#addModal">Agregar</button>
+        </div>
+      </div>
 
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Código</th>
-                      <th>Categoría</th>
-                      <th>Nombre</th>
-                      <th>Precio</th>
-                      <th>Stock</th>
-                    </tr>
-                  </thead>
+    </div>
 
-                  <tbody>
-                    {{#each resultados}}
-                      <tr>
-                        <td>{{pro_id}}</td>
-                        <td>{{cat_tipo}}</td>
-                        <td>{{pro_nombre}}</td>
-                        <td>{{pro_precio}}</td>
-                        <td>{{pro_stock}}</td>
-                      </tr>
-                    {{else}}
-                  <!--    <h6>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Categoría</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Stock</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {{#each resultados}}
+              <tr>
+                <td>{{pro_id}}</td>
+                <td>{{cat_tipo}}</td>
+                <td>{{pro_nombre}}</td>
+                <td>{{pro_precio}}</td>
+                <td>{{pro_stock}}</td>
+              </tr>
+            {{else}}
+              <!--    <h6>
                         No hay productos en el inventario
                       </h6>-->
-                    {{/each}}
+            {{/each}}
 
-                    <!--
+            <!--
 
                     <tr>
                       <td>1234567</td>
@@ -129,17 +128,16 @@
                       <td>100</td>
                     </tr>
                     -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-        </div>
+</div>
 
-        <!-- AddModal-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<!-- AddModal-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -201,8 +199,7 @@
 </div>
 
 <!-- Delete Modal-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
