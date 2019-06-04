@@ -134,7 +134,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`producto` (
   `pro_id` INT NOT NULL,
   `pro_nombre` VARCHAR(45) NULL,
-  `pro_precio` DECIMAL(10) NULL,
+  `pro_precio` DECIMAL(10,2) NULL,
   `pro_stock` INT NULL DEFAULT 0,
   `pro_umed` VARCHAR(45) NULL,
   `cat_id` INT NULL,

@@ -155,42 +155,13 @@
                   <th>Descripcion</th>
                   <th>Precio Unitario</th>
                   <th>Total</th>
+                  <th style="width:5px"><i class="fa fa-edit"></i></th>
+                  <th style="width:5px"><i class="fa fa-minus-circle"></i></th>
                 </tr>
               </thead>
 
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+              <tbody id= "tabla">
 
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-
-                </tr>
               </tbody>
             </table>
           </div>
@@ -201,12 +172,12 @@
             <label for="inputSubtotal" class="col-2 col-form-label">Subtotal:</label>
             <input type="text" class="col-2 form-control" id="inputSubtotal" disabled>
           </div>
+<!--Descuentos-->
+        <!--  <div class="row mt-1 mr-2 justify-content-end">
 
-          <div class="row mt-1 mr-2 justify-content-end">
-            <!--Descuentos-->
             <label for="inputDescuentos" class="col-2 col-form-label">Descuentos:</label>
             <input type="text" class="col-2 form-control" id="inputDescuentos" disabled>
-          </div>
+          </div> -->
 
           <div class="row mt-1 mr-2 justify-content-end">
             <!--IGV-->
@@ -217,13 +188,13 @@
           <div class="row mt-1 mr-2 justify-content-end">
             <!--Importe Total-->
             <label for="inputImporte" class="col-2 col-form-label">Importe Total:</label>
-            <input type="text" class="col-2 form-control" id="inputImporte" disabled>
+            <input type="text" class="col-2 form-control" id="inputTotal" disabled>
           </div>
 
           <div class="row mx-2 mt-2 mb-3 justify-content-start">
             <!--Subtotal-->
             <label for="inputMonto" class="col-1 col-form-label">Son: </label>
-            <input type="text" class="col-4 form-control" id="inputMonto" disabled>
+            <input type="text" class="col-8 form-control" id="inputTotalLetras" disabled>
 
 
 
@@ -249,58 +220,64 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Items</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
-        <form action="#" class="needs-validation" novalidate>
+        <form action="#" class="needs-validation" method="POST" novalidate>
 
           <div class="form-group form-row">
-            <label for="inputCategoria" class="col-4 col-form-label">Categoria:</label>
-            <input type="text" class="col-8 form-control mb-2" id="inputCategoria" required>
+            <label for="inputCantidad" class="col-4 col-form-label">Cantidad:</label>
+            <input type="number" name="detb_cantidad" class="col-8 form-control mb-2" id="inputCantidad" onchange="refresh(this.value)" required>
             <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar categoria</div>
+            <div class="invalid-feedback">Ingresar cantidad</div>
           </div>
 
           <div class="form-group form-row">
-            <label for="inputNombre" class="col-4 col-form-label">Nombre:</label>
-            <input type="text" class="col-8 form-control mb-2" id="inputNombre" required>
+            <label for="inputUnidad" class="col-4 col-form-label">Unidad de Medida:</label>
+            <select class="col-8 form-control mb-2" name="pro_umed" id="inputUnidad" required>
+              <option value="UNIDAD">UNIDAD</option>
+              <option value="KILO">KILO</option>
+              <option value="TONELADA">TONELADA</option>
+            </select>
             <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar nombre</div>
+            <div class="invalid-feedback">Seleccionar Medida</div>
           </div>
 
           <div class="form-group form-row">
-            <label for="inputPrecio" class="col-4 col-form-label">Precio:</label>
-            <input type="number" class="col-8 form-control mb-2" id="inputPrecio" required>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar el precio</div>
-          </div>
+            <label for="inputDescripcion" class="col-4 col-form-label">Descripcion:</label>
+            <select class="col-8 form-control mb-2" name="pro_nombre" id="inputDescripcion" onchange="seleccion(this.value)" required>
+              <option value=""></option>
 
-          <div class="form-group form-row">
-            <label for="inputStock" class="col-4 col-form-label">Stock:</label>
-            <input type="text" class="col-8 form-control mb-2" id="inpuStock" required>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar el stock</div>
-          </div>
+              {{#each productos}}
+                <option value="{{pro_precio}}"> {{pro_nombre}} </option>
+              {{/each}}
 
-          <div class="form-group form-row">
-            <label for="inputUnidad" class="col-4 col-form-label">Unidad:</label>
-            <select class="col-8 form-control mb-2" id="inputUnidad" required>
-              <option value="1"></option>
-              <option value="2">Objeto 2</option>
-              <option value="3">Objeto 3</option>
             </select>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Seleccionar medida</div>
           </div>
 
+          <div class="form-group form-row">
+            <label for="inputValor" class="col-4 col-form-label">Valor Unitario:</label>
+            <input type="text" class="col-8 form-control mb-2" name="pro_precio" id="inputValor" disabled required>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Ingresar valor unitario</div>
+          </div>
+
+          <div class="form-group form-row">
+            <label for="inputMonto" class="col-4 col-form-label">Monto Total:</label>
+            <input type="text" class="col-8 form-control" name="detb_precio" id="inputMonto" disabled>
+
+          </div>
         </form>
+
       </div>
       <div class="modal-footer">
-        <button class="btn btn-sm btn-success" type="button" data-dismiss="modal">Aceptar</button>
-        <button class="btn btn-sm btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+        <button class="btn btn-success" type="submit" data-dismiss="modal" onclick="prueba()">Aceptar</button>
+        <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

@@ -20,7 +20,7 @@ router.get('/inventario', async (req, res) => {
 });
 
 router.get('/clientes', async (req, res) => {
-  const results = await pool.query('SELECT pe_jur_ruc, pe_jur_razon_social, pe_jur_direccion, pe_jur_email FROM persona_juridica UNION SELECT pe_nat_dni,CONCAT(pe_nat_nombres , ' ', pe_nat_apellidos), pe_nat_direccion, pe_nat_email FROM persona_natural');
+  const results = await pool.query('SELECT pe_jur_ruc, pe_jur_razon_social, pe_jur_direccion, pe_jur_email FROM persona_juridica UNION SELECT pe_nat_dni,CONCAT(pe_nat_nombres , " ", pe_nat_apellidos), pe_nat_direccion, pe_nat_email FROM persona_natural');
   res.render('dashboard/clientes', {
     results
   });
@@ -28,7 +28,11 @@ router.get('/clientes', async (req, res) => {
 });
 
 router.get('/factura', async (req, res) => {
-  res.render('dashboard/factura');
+  //PARA LLENAR COMBOBOX
+  const modo_pago = await pool.query('SELECT * FROM modo_pago');
+  const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
+
+  res.render('dashboard/factura', {modo_pago,productos});
 });
 
 router.get('/boleta', async (req, res) => {
