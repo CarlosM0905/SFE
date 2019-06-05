@@ -32,7 +32,30 @@ router.get('/factura', async (req, res) => {
   const modo_pago = await pool.query('SELECT * FROM modo_pago');
   const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
 
+
   res.render('dashboard/factura', {modo_pago,productos});
+});
+
+router.post('/factura', async (req, res) => {
+
+  const {documento} = req.body;
+
+  const datos = await pool.query('SELECT pe_jur_ruc,pe_jur_id, pe_jur_razon_social, pe_jur_direccion FROM persona_juridica WHERE pe_jur_ruc = ?',[documento]);
+
+  let ruc = datos[0].pe_jur_ruc;
+  let id = datos[0].pe_jur_id;
+  let razon_social = datos[0].pe_jur_razon_social;
+  let direccion = datos[0].pe_jur_direccion;
+  const newFactura = {
+    ruc,
+    id,
+    razon_social,
+    direccion
+  }
+  console.log(newFactura);
+  res.render('dashboard/factura',{newFactura});
+
+
 });
 
 router.get('/boleta', async (req, res) => {
@@ -60,7 +83,7 @@ router.post('/boleta', async (req, res) => {
 
   await pool.query('INSERT INTO boleta SET ?',[newBoleta]);
 
-
+});
   //const result = await pool.query('SELECT pe_nat_nombres,pe_nat_direccion FROM persona_natural WHERE pe_nat_dni = ?', [documento]);
 
   //const result2 = await pool.query('SELECT pe_jur_razon_social,pe_jur_direccion FROM persona_juridica WHERE pe_jur_ruc = ?', [documento]);
@@ -179,7 +202,6 @@ router.post('/boleta', async (req, res) => {
     await pool.query('INSERT INTO detalle_boleta set ?',[detalle]);
   */
 
-});
 
 
 

@@ -9,19 +9,20 @@
   </div>
   <div class="form-factura">
 
-    <form class="needs-validation" action="#" novalidate>
+    <form class="needs-validation" action="/dashboard/factura" method="POST" novalidate>
 
+{{#if newFactura}}
       <div class="form-group form-row">
         <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
         <div class="col mr-3">
-          <input type="text" name="documento" class="form-control" id="inputDocumento" minlength="8" maxlength="11" onkeypress="v_document(event)" required>
+          <input type="text" name="documento" value="{{newFactura.ruc}}" class="form-control" id="inputDocumento" minlength="8" maxlength="11" onkeypress="v_document(event)" required>
           <div class="valid-feedback">¡Correcto!</div>
           <div class="invalid-feedback">Ingresar documento</div>
         </div>
 
         <!--Button verify-->
         <div class="col-8">
-          <button type="button" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+          <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
         </div>
       </div>
 
@@ -31,7 +32,10 @@
             <!--Emisor-->
             <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
             <div class="col-10">
-              <input type="text" class="form-control" id="inputCliente" required>
+
+              <input type="text" class="form-control" id="inputCliente" value="{{newFactura.razon_social}}"required>
+
+
               <div class="valid-feedback">
                 ¡Correcto!
               </div>
@@ -49,7 +53,9 @@
             <!--Dirección-->
             <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
             <div class="col-10">
-              <input type="text" class="col form-control" id="inputDireccion" required>
+
+              <input type="text" class="col form-control" id="inputDireccion" value="{{newFactura.direccion}}"required>
+
               <div class="valid-feedback">
                 ¡Correcto!
               </div>
@@ -60,7 +66,62 @@
           </div>
         </div>
       </div>
+      {{else}}
+      <div class="form-group form-row">
+        <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
+        <div class="col mr-3">
+          <input type="text" name="documento"  class="form-control" id="inputDocumento" minlength="8" maxlength="11" onkeypress="v_document(event)" required>
+          <div class="valid-feedback">¡Correcto!</div>
+          <div class="invalid-feedback">Ingresar documento</div>
+        </div>
 
+        <!--Button verify-->
+        <div class="col-8">
+          <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="form-group form-row">
+        <div class="col">
+          <div class="form-row">
+            <!--Emisor-->
+            <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
+            <div class="col-10">
+
+              <input type="text" class="form-control" id="inputCliente"required>
+
+
+              <div class="valid-feedback">
+                ¡Correcto!
+              </div>
+              <div class="invalid-feedback">
+                Ingresar el nombre
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group form-row">
+        <div class="col">
+          <div class="form-row">
+            <!--Dirección-->
+            <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
+            <div class="col-10">
+
+              <input type="text" class="col form-control" id="inputDireccion" required>
+
+              <div class="valid-feedback">
+                ¡Correcto!
+              </div>
+              <div class="invalid-feedback">
+                Ingresar la dirección
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{{/if}}
       <div class="form-group form-row">
 
         <div class="col-xs-12 col-md-6 my-1">

@@ -1,3 +1,5 @@
+
+
 var cont = 1;
 
 function refresh(cantidad) {
@@ -61,8 +63,10 @@ function prueba() {
    let i_edit = document.createElement('i');
 i_edit.className = "fa fa-edit";
 btn_edit.className = "btn btn-primary btn-sm mr-2";
+btn_edit.setAttribute = "#addModal";
 btn_edit.appendChild(i_edit);
 cell6.appendChild(btn_edit);
+
 
   let cell7 = document.createElement('td');
   let btn_delete = document.createElement('button');
