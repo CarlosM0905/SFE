@@ -9,17 +9,18 @@
   </div>
   <form class="needs-validation" method="POST" action="/dashboard/boleta" novalidate>
     <!--Numero de documento-->
+    {{#if newBoleta}}
     <div class="form-group form-row">
       <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
       <div class="col mr-3">
-        <input type="text" name="documento" class="form-control" id="inputDocumento" minlength="8" maxlength="11" onkeypress="v_document(event)" required>
+        <input type="text" name="documentox" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento" minlength="8" maxlength="11" required>
         <div class="valid-feedback">¡Correcto!</div>
         <div class="invalid-feedback">Ingresar documento</div>
       </div>
 
       <!--Button verify-->
       <div class="col-8">
-        <button type="button" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+        <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
       </div>
     </div>
 
@@ -28,12 +29,12 @@
     <div class="form-group form-row">
       <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
       <div class="col mr-3">
-        <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Nombres" required>
+        <input type="text" name="nombre" class="form-control" id="inputNombre" value="{{newBoleta.nombres}}" placeholder="Nombres" required>
         <div class="valid-feedback">¡Correcto!</div>
         <div class="invalid-feedback">Ingresar el nombre</div>
       </div>
       <div class="col mr-3">
-        <input type="text" name="apellido" class="form-control" id="inputApellido" placeholder="Apellidos" required>
+        <input type="text" name="apellido" class="form-control" id="inputApellido" value="{{newBoleta.apellidos}}" placeholder="Apellidos" required>
         <div class="valid-feedback">¡Correcto!</div>
         <div class="invalid-feedback">Ingresar el apellido</div>
       </div>
@@ -44,11 +45,53 @@
     <div class="form-group form-row">
       <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
       <div class="col mr-3">
-        <input type="text" name="direccion" class="form-control" id="inputDireccion" required>
+        <input type="text" name="direccion" class="form-control" value="{{newBoleta.direccion}}" id="inputDireccion" required>
         <div class="valid-feedback">¡Correcto!</div>
         <div class="invalid-feedback">Ingresar la dirección</div>
       </div>
     </div>
+{{else}}
+<div class="form-group form-row">
+  <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
+  <div class="col mr-3">
+    <input type="text" name="documento" class="form-control" id="inputDocumento" minlength="8" maxlength="11" required>
+    <div class="valid-feedback">¡Correcto!</div>
+    <div class="invalid-feedback">Ingresar documento</div>
+  </div>
+
+  <!--Button verify-->
+  <div class="col-8">
+    <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+  </div>
+</div>
+
+
+<!--Emisor-->
+<div class="form-group form-row">
+  <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
+  <div class="col mr-3">
+    <input type="text" name="nombre" class="form-control" id="inputNombre"  placeholder="Nombres" required>
+    <div class="valid-feedback">¡Correcto!</div>
+    <div class="invalid-feedback">Ingresar el nombre</div>
+  </div>
+  <div class="col mr-3">
+    <input type="text" name="apellido" class="form-control" id="inputApellido"  placeholder="Apellidos" required>
+    <div class="valid-feedback">¡Correcto!</div>
+    <div class="invalid-feedback">Ingresar el apellido</div>
+  </div>
+
+</div>
+
+<!--Dirección-->
+<div class="form-group form-row">
+  <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
+  <div class="col mr-3">
+    <input type="text" name="direccion" class="form-control"  id="inputDireccion" required>
+    <div class="valid-feedback">¡Correcto!</div>
+    <div class="invalid-feedback">Ingresar la dirección</div>
+  </div>
+</div>
+{{/if}}
 
 
     <div class="form-group form-row">
