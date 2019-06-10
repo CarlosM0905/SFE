@@ -33,14 +33,19 @@ router.get('/factura', async (req, res) => {
   const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
 
 
-  res.render('dashboard/factura', {modo_pago,productos});
+  res.render('dashboard/factura', {
+    modo_pago,
+    productos
+  });
 });
 
 router.post('/factura', async (req, res) => {
 
-  const {documento} = req.body;
+  const {
+    documento
+  } = req.body;
 
-  const datos = await pool.query('SELECT pe_jur_ruc,pe_jur_id, pe_jur_razon_social, pe_jur_direccion FROM persona_juridica WHERE pe_jur_ruc = ?',[documento]);
+  const datos = await pool.query('SELECT pe_jur_ruc,pe_jur_id, pe_jur_razon_social, pe_jur_direccion FROM persona_juridica WHERE pe_jur_ruc = ?', [documento]);
 
   let ruc = datos[0].pe_jur_ruc;
   let id = datos[0].pe_jur_id;
@@ -52,8 +57,16 @@ router.post('/factura', async (req, res) => {
     razon_social,
     direccion
   }
+
+  const modo_pago = await pool.query('SELECT * FROM modo_pago');
+  const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
+
   console.log(newFactura);
-  res.render('dashboard/factura',{newFactura});
+  res.render('dashboard/factura', {
+    modo_pago,
+    productos,
+    newFactura
+  });
 
 
 });
@@ -63,20 +76,27 @@ router.get('/boleta', async (req, res) => {
   const modo_pago = await pool.query('SELECT * FROM modo_pago');
   const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
 
-  res.render('dashboard/boleta', {modo_pago,productos});
+  res.render('dashboard/boleta', {
+    modo_pago,
+    productos
+  });
 });
 
 router.post('/boleta', async (req, res) => {
 
-  const {documentox} = req.body;
+  const {
+    documentox
+  } = req.body;
 
-  const datos = await pool.query('SELECT pe_nat_id, pe_nat_nombres, pe_nat_apellidos, pe_nat_dni, pe_nat_direccion FROM persona_natural WHERE pe_nat_dni = ?',[documentox]);
+  const dat = await pool.query('SELECT pe_nat_id, pe_nat_nombres, pe_nat_apellidos, pe_nat_dni, pe_nat_direccion FROM persona_natural WHERE pe_nat_dni = ?', [documentox]);
 
-  let id = datos[0].pe_nat_id;
-  let nombres = datos[0].pe_nat_nombres;
-  let apellidos = datos[0].pe_nat_apellidos;
-  let dni = datos[0].pe_nat_dni;
-  let direccion = datos[0].pe_nat_direccion;
+  console.log("result" + dat);
+  let id = dat[0].pe_nat_id;
+  let nombres = dat[0].pe_nat_nombres;
+  let apellidos = dat[0].pe_nat_apellidos;
+  let dni = dat[0].pe_nat_dni;
+  let direccion = dat[0].pe_nat_direccion;
+
   const newBoleta = {
     id,
     nombres,
@@ -84,8 +104,18 @@ router.post('/boleta', async (req, res) => {
     dni,
     direccion
   }
- console.log(newBoleta);
-  res.render('dashboard/boleta',{newBoleta});
+
+  const modo_pago = await pool.query('SELECT * FROM modo_pago');
+  const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
+
+  console.log(newBoleta);
+  res.render('dashboard/boleta', {
+    modo_pago,
+    productos,
+    newBoleta
+  });
+
+
 });
 
 module.exports = router;

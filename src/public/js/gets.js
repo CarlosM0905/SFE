@@ -4,7 +4,7 @@ var cont = 1;
 
 function refresh(cantidad) {
     const precio = document.getElementById('inputValor').value;
-    document.getElementById('inputMonto').value = cantidad*precio;
+    document.getElementById('inputMonto').value = (cantidad*precio).toFixed(2);
 }
 
 function seleccion(precio) {
@@ -98,7 +98,7 @@ function total() {
         total += parseFloat(montos[index].innerHTML);
     }
 
-    document.getElementById('inputTotal').value = total;
+    document.getElementById('inputTotal').value = total.toFixed(2);
     //IGV
     var subtotal = (total/1.18).toFixed(2);
     var igv = (total - subtotal).toFixed(2);
