@@ -315,5 +315,5 @@ var numeroALetras = (function() {
     else
       return Millones(data.enteros) + ' ' + data.letrasMonedaPlural + ' ' + data.letrasCentavos;
   };
-});
+})();
 
