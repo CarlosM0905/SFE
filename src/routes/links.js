@@ -46,13 +46,7 @@ router.get('/', async(req,res)=>{
     const links = await pool.query('SELECT * FROM links');
     res.render('links/list', {links});
 });
-
-
-
-
-
 // Eliminar
-
 
 router.get('/delete/:id', async (req,res)=>{
     // Request params tiene todos los parametros que pasa el usuario en la peticion
@@ -66,7 +60,6 @@ router.get('/delete/:id', async (req,res)=>{
 
 
 // Editar 
-
 router.get('/edit/:id', async (req,res)=>{
     const {id} = req.params;
     const link = await pool.query('SELECT * FROM links WHERE id = ?', [id]);

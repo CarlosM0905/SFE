@@ -4,7 +4,7 @@ var cont = 1;
 
 function refresh(cantidad) {
     const precio = document.getElementById('inputValor').value;
-    document.getElementById('inputMonto').value = cantidad*precio;
+    document.getElementById('inputMonto').value = cantidad * precio;
 }
 
 function seleccion(precio) {
@@ -27,7 +27,7 @@ function prueba() {
 
     let cell1 = document.createElement('td');
     let input1 = document.createElement('input');
-  //  let btn1 = document.createElement('button');
+    //  let btn1 = document.createElement('button');
     input1.name = 'cantidad';
     input1.value = cantidad;
     input1.type = 'hidden';
@@ -58,37 +58,44 @@ function prueba() {
     cell5.className = "monto_total";
 
 
-  let cell6 = document.createElement('td');
-  let btn_edit = document.createElement('button');
-   let i_edit = document.createElement('i');
-i_edit.className = "fa fa-edit";
-btn_edit.className = "btn btn-primary btn-sm mr-2";
-btn_edit.setAttribute = "#addModal";
-btn_edit.appendChild(i_edit);
-cell6.appendChild(btn_edit);
+    let cell6 = document.createElement('td');
+    let btn_edit = document.createElement('button');
+    let i_edit = document.createElement('i');
+    i_edit.className = "fa fa-edit";
+    btn_edit.className = "btn btn-primary btn-sm mr-2";
+    btn_edit.setAttribute = "#addModal";
+    btn_edit.appendChild(i_edit);
+    cell6.appendChild(btn_edit);
 
 
-  let cell7 = document.createElement('td');
-  let btn_delete = document.createElement('button');
-   let i_delete = document.createElement('i');
-i_delete.className = "fa fa-minus-circle";
-btn_delete.className = "btn btn-danger btn-sm";
-btn_delete.appendChild(i_delete);
-cell7.appendChild(btn_delete);
-  //<button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i></button>
-  //<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-minus-circle"></i></button>
+    let cell7 = document.createElement('td');
+    let btn_delete = document.createElement('button');
+    let i_delete = document.createElement('i');
+    i_delete.className = "fa fa-minus-circle";
+    btn_delete.className = "btn btn-danger btn-sm";
+    btn_delete.appendChild(i_delete);
+    cell7.appendChild(btn_delete);
+    //<button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i></button>
+    //<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-minus-circle"></i></button>
     cell1.innerHTML = cantidad;
     cell2.innerHTML = unidad;
     cell3.innerHTML = descripcion;
     cell4.innerHTML = valor;
     cell5.innerHTML = monto;
     let fila = document.createElement('tr');
-    fila.append(cell1, input1, cell2, input2, cell3, input3, cell4, input4, cell5, input5,cell6,cell7);
+    fila.append(cell1, input1, cell2, input2, cell3, input3, cell4, input4, cell5, input5, cell6, cell7);
 
     let tabla = document.getElementById('tabla');
     tabla.appendChild(fila);
     total();
 };
+
+function openDate(){
+    $('#datetimepickerFE').datetimepicker({
+        locale: 'es',
+        format: 'L'
+    });
+}
 
 function total() {
     let montos = document.getElementsByClassName('monto_total');
@@ -100,15 +107,15 @@ function total() {
 
     document.getElementById('inputTotal').value = total;
     //IGV
-    var subtotal = (total/1.18).toFixed(2);
+    var subtotal = (total / 1.18).toFixed(2);
     var igv = (total - subtotal).toFixed(2);
 
-  document.getElementById('inputSubtotal').value = subtotal;
-  document.getElementById('inputIGV').value = igv;
-  document.getElementById('inputTotalLetras').value = numeroALetras(total);
+    document.getElementById('inputSubtotal').value = subtotal;
+    document.getElementById('inputIGV').value = igv;
+    document.getElementById('inputTotalLetras').value = numeroALetras(total);
 }
 
-var numeroALetras = (function() {
+var numeroALetras = (function () {
     function Unidades(num) {
 
         switch (num) {
@@ -281,7 +288,7 @@ var numeroALetras = (function() {
         };
 
         if (data.centavos > 0) {
-            data.letrasCentavos = 'CON ' + (function() {
+            data.letrasCentavos = 'CON ' + (function () {
                 if (data.centavos == 1)
                     return Millones(data.centavos) + ' ' + data.letrasMonedaCentavoSingular;
                 else

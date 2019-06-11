@@ -19,6 +19,7 @@ router.get('/inventario', async (req, res) => {
 
 });
 
+// Ruta localhost:5000/dashboard/clientes
 router.get('/clientes', async (req, res) => {
   const results = await pool.query('SELECT pe_jur_ruc, pe_jur_razon_social, pe_jur_direccion, pe_jur_email FROM persona_juridica UNION SELECT pe_nat_dni,CONCAT(pe_nat_nombres , " ", pe_nat_apellidos), pe_nat_direccion, pe_nat_email FROM persona_natural');
   res.render('dashboard/clientes', {
@@ -27,14 +28,16 @@ router.get('/clientes', async (req, res) => {
 
 });
 
+//Ruta localhost:5000/dashboard/factura
 router.get('/factura', async (req, res) => {
-  //PARA LLENAR COMBOBOX
+
+  // Para llenar los combo box 'modo de pago' y 'productos'
   const modo_pago = await pool.query('SELECT * FROM modo_pago');
   const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
 
-
   res.render('dashboard/factura', {modo_pago,productos});
 });
+
 
 router.post('/factura', async (req, res) => {
 
@@ -54,12 +57,18 @@ router.post('/factura', async (req, res) => {
   }
   console.log(newFactura);
   res.render('dashboard/factura',{newFactura});
+});
 
 
+
+router.post('/',(req,res)=>{
+  console.log(req.body);  
+  res.redirect('/dashboard/clientes');
 });
 
 router.get('/boleta', async (req, res) => {
-  //PARA LLENAR COMBOBOX
+
+  // Para llenar los combo box 'modo de pago' y 'productos'
   const modo_pago = await pool.query('SELECT * FROM modo_pago');
   const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
 
