@@ -75,8 +75,7 @@ router.post('/factura', async (req, res) => {
 
 
 router.post('/',(req,res)=>{
-  console.log(req.body);  
-  res.redirect('/dashboard/clientes');
+  res.redirect('/dashboard/');
 });
 
 router.get('/boleta', async (req, res) => {
@@ -128,3 +127,4 @@ router.post('/boleta', async (req, res) => {
 });
 
 module.exports = router;
+     
