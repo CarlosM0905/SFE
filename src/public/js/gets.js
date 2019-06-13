@@ -5,18 +5,21 @@ function refresh(cantidad) {
 }
 
 function seleccion(precio) {
+  let precio1 = precio.split(',')[1];
+  console.log(precio1);
+
   // document.getElementById
   const cantidad = document.getElementById('inputCantidad').value;
 
-  $('#inputValor').val(precio);
-  $("#inputMonto").val(cantidad * precio);
+  $('#inputValor').val(precio1);
+  $("#inputMonto").val(cantidad * precio1);
 };
 //var temp = 1;
 
 function openDate(){
   $('#datetimepickerFE').datetimepicker({
       locale: 'es',
-      format: 'L'
+      format: 'YYYY-MM-DD'
   });
 }
 //Boleta and factura issues
@@ -24,7 +27,8 @@ function prueba() {
   console.log("primer "+contador);
   let cantidad = document.getElementById('inputCantidad').value;
   let unidad = document.getElementById('inputUnidad').value;
-  let descripcion = document.getElementById('inputDescripcion').value;
+  let descripcion = document.getElementById('inputDescripcion').value.split(',')[2];
+  let id_pro = document.getElementById('inputDescripcion').value.split(',')[0];
   let valor = document.getElementById('inputValor').value;
   let monto = document.getElementById('inputMonto').value;
 
@@ -45,7 +49,7 @@ function prueba() {
   let cell3 = document.createElement('td');
   let input3 = document.createElement('input');
   input3.name = 'descripcion';
-  input3.value = descripcion;
+  input3.value = id_pro;
   input3.type = 'hidden';
 
   let cell4 = document.createElement('td');
