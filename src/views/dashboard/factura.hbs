@@ -398,7 +398,7 @@
             <select class="col-8 form-control mb-2" name="pro_umed" id="inputUnidad" required>
               <option value=""></option>
               {{#each unidad_medida}}
-                <option value="{{umed_id}}">{{umed_nombre}}</option>
+                <option value="{{umed_id}},{{umed_nombre}}">{{umed_nombre}}</option>
               {{/each}}
             </select>
             <div class="valid-feedback">¡Correcto!</div>

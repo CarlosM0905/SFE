@@ -26,7 +26,7 @@ function openDate(){
 function prueba() {
   console.log("primer "+contador);
   let cantidad = document.getElementById('inputCantidad').value;
-  let unidad = document.getElementById('inputUnidad').value;
+  let unidad = document.getElementById('inputUnidad').value.split(',')[1];
   let descripcion = document.getElementById('inputDescripcion').value.split(',')[2];
   let id_pro = document.getElementById('inputDescripcion').value.split(',')[0];
   let valor = document.getElementById('inputValor').value;
@@ -43,7 +43,7 @@ function prueba() {
   let cell2 = document.createElement('td');
   let input2 = document.createElement('input');
   input2.name = 'unidad';
-  input2.value = unidad;
+  input2.value = document.getElementById('inputUnidad').value.split(',')[0];
   input2.type = 'hidden';
 
   let cell3 = document.createElement('td');

@@ -1,5 +1,4 @@
 <div class="container-fluid">
-
   <!-- Page Heading -->
   <h1 class="h3 mb-2 text-gray-800">Inventario</h1>
   <p class="mb-4">Productos del inventario en general.</p>
@@ -47,87 +46,6 @@
                         No hay productos en el inventario
                       </h6>-->
             {{/each}}
-
-            <!--
-
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    <tr>
-                      <td>1234567</td>
-                      <td>Papel</td>
-                      <td>Cuadernos</td>
-                      <td>20</td>
-                      <td>100</td>
-                    </tr>
-                    -->
           </tbody>
         </table>
       </div>
@@ -147,32 +65,38 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="#" class="needs-validation" novalidate>
+        <form action="/dashboard/inventario" method="POST" class="needs-validation" novalidate>
 
           <div class="form-group form-row">
             <label for="inputCategoria" class="col-4 col-form-label">Categoria:</label>
-            <input type="text" class="col-8 form-control mb-2" id="inputCategoria" required>
+            <select class="col-8 form-control mb-2" name="cat_tipo" id="inputCategoria"
+              required>
+              <option value=""></option>
+              {{#each categorias}}
+              <option value="{{cat_id}}"> {{cat_tipo}} </option>
+              {{/each}}
+            </select>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar categoria</div>
           </div>
 
           <div class="form-group form-row">
             <label for="inputNombre" class="col-4 col-form-label">Nombre:</label>
-            <input type="text" class="col-8 form-control mb-2" id="inputNombre" required>
+            <input type="text" class="col-8 form-control mb-2" name = "pro_nombre" id="inputNombre" required>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar nombre</div>
           </div>
 
           <div class="form-group form-row">
             <label for="inputPrecio" class="col-4 col-form-label">Precio:</label>
-            <input type="number" class="col-8 form-control mb-2" id="inputPrecio" required>
+            <input type="number" class="col-8 form-control mb-2" name = "pro_precio" id="inputPrecio" required>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar el precio</div>
           </div>
 
           <div class="form-group form-row">
             <label for="inputStock" class="col-4 col-form-label">Stock:</label>
-            <input type="text" class="col-8 form-control mb-2" id="inpuStock" required>
+            <input type="text" class="col-8 form-control mb-2" name = "pro_stock" id="inpuStock" required>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar el stock</div>
           </div>
@@ -180,20 +104,21 @@
           <div class="form-group form-row">
             <label for="inputUnidad" class="col-4 col-form-label">Unidad:</label>
             <select class="col-8 form-control mb-2" id="inputUnidad" required>
-              <option value="1"></option>
-              <option value="2">Objeto 2</option>
-              <option value="3">Objeto 3</option>
+              <option value=""></option>
+              {{#each u_med}}
+              <option value="{{umed_id}}"> {{umed_nombre}} </option>
+              {{/each}}
             </select>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Seleccionar medida</div>
           </div>
-
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-sm btn-success" type="button" data-dismiss="modal">Aceptar</button>
+<div class="modal-footer">
+        <button class="btn btn-sm btn-success" type="submit" data-dismiss="modal">Aceptar</button>
         <button class="btn btn-sm btn-danger" type="button" data-dismiss="modal">Cancelar</button>
       </div>
+        </form>
+      </div>
+      
     </div>
   </div>
 </div>

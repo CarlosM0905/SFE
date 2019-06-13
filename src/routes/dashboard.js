@@ -12,11 +12,41 @@ router.get('/', async (req, res) => {
 // Ruta localhost:5000/dashboard/inventario
 router.get('/inventario', async (req, res) => {
 
+  const categorias = await pool.query('SELECT cat_id, cat_tipo FROM categoria');
   const resultados = await pool.query('SELECT pro_id, cat_tipo, pro_nombre, pro_precio, pro_stock FROM producto P INNER JOIN categoria C ON P.cat_id = C.cat_id');
+  const u_med = await pool.query('SELECT umed_id, umed_nombre FROM unidad_medida');
   res.render('dashboard/inventario', {
-    resultados
+    resultados,
+    categorias,
+    u_med
   });
 
+});
+
+router.post('/inventario', async (req, res) => {
+  console.log('gfdgfd');
+  const categorias = await pool.query('SELECT cat_id, cat_tipo FROM categoria');
+  const resultados = await pool.query('SELECT pro_id, cat_tipo, pro_nombre, pro_precio, pro_stock FROM producto P INNER JOIN categoria C ON P.cat_id = C.cat_id');
+  const u_med = await pool.query('SELECT umed_id, umed_nombre FROM unidad_medida');
+  res.render('dashboard/inventario', {
+    resultados,
+    categorias,
+    u_med
+  });
+
+  
+  let pro_nombre = req.body.pro_nombre;
+  let pro_precio = req.body.pro_precio;
+  let pro_stock =  req.body.pro_stock;
+  let cat_id = (await pool.query('SELECT cat_id FROM categoria WHERE cat_tipo = ?',[req.body.cat_tipo]));
+  const newProducto = {
+    pro_nombre,
+    pro_precio,
+    pro_stock,
+    cat_id
+  }
+  console.log(newProducto);
+ await pool.query('INSERT INTO producto SET ?',[newProducto]);
 });
 
 // Ruta localhost:5000/dashboard/clientes
