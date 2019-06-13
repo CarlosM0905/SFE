@@ -33,7 +33,7 @@ router.get('/factura', async (req, res) => {
 
   // Para llenar los combo box 'modo de pago' y 'productos'
   const modo_pago = await pool.query('SELECT * FROM modo_pago');
-  const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
+  const productos = await pool.query('SELECT pro_id, pro_nombre, pro_stock, pro_precio FROM producto');
   const unidad_medida = await pool.query('SELECT * FROM unidad_medida');
   
 
@@ -79,7 +79,6 @@ router.post('/factura', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
- 
   console.log(req.body);
   let tipo_cmp = req.body.tipo_cmp;
 
@@ -94,7 +93,6 @@ router.post('/', async (req, res) => {
     let aCantidad = req.body.cantidad;
     let aUnidad = req.body.unidad;
     let aDescripcion = req.body.descripcion;
-    let aValor = req.body.valor;
     let aMonto = req.body.monto;
 
     let fac_mtotal = req.body.mtotal;
@@ -135,7 +133,53 @@ router.post('/', async (req, res) => {
     }
   }
   else if (tipo_cmp == 2) {
-    console.log("Comprobante");
+   //Datos Boleta
+    let pe_nat_id = (await pool.query('SELECT pe_nat_id FROM persona_natural WHERE pe_nat_dni = ?',[req.body.documentox]))[0].pe_nat_id;
+    let bol_fecha = req.body.bol_fecha;
+    let mod_id =  (await pool.query('SELECT mod_id FROM modo_pago WHERE mod_nombre = ?',[req.body.modopago]))[0].mod_id;
+    let bol_tipo_moneda = req.body.bol_tipo_moneda;
+   
+    //Detalle Boleta
+    let aCantidad = req.body.cantidad;
+    let aUnidad = req.body.unidad;
+    let aDescripcion = req.body.descripcion;
+    let aMonto = req.body.monto;
+
+    let bol_mtotal = req.body.bol_mtotal;
+
+    const boleta = {
+      bol_fecha,
+      bol_mtotal,
+      bol_tipo_moneda,
+      pe_nat_id,
+      mod_id
+    }
+
+    console.log(boleta);
+
+   await pool.query('INSERT INTO boleta SET ?',[boleta]);
+    
+    let tam = Object.keys(aCantidad).length;
+    // Id de boleta
+    let bol_id = (await pool.query('SELECT bol_id FROM boleta ORDER BY bol_id DESC LIMIT 1'))[0].bol_id;
+    
+
+    for (let index = 0; index < tam; index++) {
+      const pro_id = aDescripcion[index].split(',')[0];
+      const detb_monto = aMonto[index];
+      const detb_cantidad = aCantidad[index];
+      const umed_id = aUnidad[index];
+  
+      const newDetalle = {
+        bol_id,
+        pro_id,
+        detb_monto,
+        detb_cantidad,
+        umed_id
+      }
+      await pool.query('INSERT INTO detalle_boleta SET ?',[newDetalle]);
+
+    }
   } else {
 
   }
@@ -146,11 +190,13 @@ router.get('/boleta', async (req, res) => {
 
   // Para llenar los combo box 'modo de pago' y 'productos'
   const modo_pago = await pool.query('SELECT * FROM modo_pago');
-  const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
+  const productos = await pool.query('SELECT pro_id, pro_nombre, pro_stock, pro_precio FROM producto');
+  const unidad_medida = await pool.query('SELECT * FROM unidad_medida');
 
   res.render('dashboard/boleta', {
     modo_pago,
-    productos
+    productos,
+    unidad_medida
   });
 });
 
@@ -178,13 +224,15 @@ router.post('/boleta', async (req, res) => {
   }
 
   const modo_pago = await pool.query('SELECT * FROM modo_pago');
-  const productos = await pool.query('SELECT pro_nombre, pro_stock, pro_precio FROM producto');
+  const productos = await pool.query('SELECT pro_id, pro_nombre, pro_stock, pro_precio FROM producto');
+  const unidad_medida = await pool.query('SELECT * FROM unidad_medida');
 
   console.log(newBoleta);
   res.render('dashboard/boleta', {
     modo_pago,
     productos,
-    newBoleta
+    newBoleta,
+    unidad_medida
   });
 
 

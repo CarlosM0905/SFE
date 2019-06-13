@@ -1,5 +1,3 @@
-
-
 INSERT INTO mydb.modo_pago (mod_nombre) VALUES ("Credito");
 INSERT INTO mydb.modo_pago (mod_nombre) VALUES ("Debito");
 INSERT INTO mydb.modo_pago (mod_nombre) VALUES ("Efectivo");

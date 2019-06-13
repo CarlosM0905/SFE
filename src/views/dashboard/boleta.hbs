@@ -7,22 +7,190 @@
       <i class="fas fa-download fa-sm text-white-50"></i>
       Generar Reporte</a>-->
   </div>
-
-  <form class="needs-validation" method="POST" action="/dashboard/boleta" novalidate>
+  {{#if newBoleta}}
+  <form class="needs-validation" method="POST" action="/dashboard/" novalidate>
     <!--Numero de documento-->
-    {{#if newBoleta}}
+     <input type="text" name="tipo_cmp" value="2" style="visibility: hidden;">
     <div class="form-group form-row">
-      <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
-      <div class="col mr-3">
-        <input type="text" name="documentox" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento"
-          minlength="8" maxlength="11" required>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Ingresar documento</div>
+      <div class="col-6 row">
+        <label for="inputDocumento" class="col-4 col-form-label">Documento:</label>
+        <div class="col-6">
+          <input type="text" name="documentox" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento"
+            minlength="8" maxlength="11" required>
+          <div class="valid-feedback">¡Correcto!</div>
+          <div class="invalid-feedback">Ingresar documento</div>
+          <!--Button verify-->
+
+        </div>
+        <div class="col-2">
+          <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+        </div>
       </div>
 
-      <!--Button verify-->
-      <div class="col-8">
-        <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+      <div class="col-6 row">
+        <label for="inputMoneda" class="col-6 col-form-label">Tipo de Moneda:</label>
+        <div class="col-6">
+          <select class="form-control mb-2" name="bol_tipo_moneda" id="inputMoneda" required>
+            <option disabled></option>
+            <option value="SOLES">SOLES</option>
+            <option value="DOLARES">DOLARES</option>
+            <option value="EUROS">EUROS</option>
+          </select>
+          <div class="valid-feedback">
+            ¡Correcto!
+          </div>
+          <div class="invalid-feedback">
+            Ingresar el tipo de moneda.
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Emisor-->
+    <div class="form-group form-row">
+      <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
+      <div class="col mr-3">
+        <input type="text" name="nombre" class="form-control" id="inputNombre" value="{{newBoleta.nombres}}"
+          placeholder="Nombres" required>
+        <div class="valid-feedback">¡Correcto!</div>
+        <div class="invalid-feedback">Ingresar el nombre</div>
+      </div>
+      <div class="col mr-3">
+        <input type="text" name="apellido" class="form-control" id="inputApellido" value="{{newBoleta.apellidos}}"
+          placeholder="Apellidos" required>
+        <div class="valid-feedback">¡Correcto!</div>
+        <div class="invalid-feedback">Ingresar el apellido</div>
+      </div>
+    </div>
+
+    <!--Dirección-->
+    <div class="form-group form-row">
+      <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
+      <div class="col mr-3">
+        <input type="text" name="direccion" class="form-control" value="{{newBoleta.direccion}}" id="inputDireccion"
+          required>
+        <div class="valid-feedback">¡Correcto!</div>
+        <div class="invalid-feedback">Ingresar la dirección</div>
+      </div>
+    </div>
+
+    <div class="form-group form-row">
+      <!--Modo de pago-->
+      <label for="inputPago" class="col-2 col-form-label">Modo de Pago:</label>
+      <div class="col mr-3">
+        <select class="form-control" id="inputPago" name="modopago" required>
+          <option value=""></option>
+          {{#each modo_pago}}
+          <option value="{{mod_nombre}}">{{mod_nombre}}</option>
+          {{/each}}
+        </select>
+        <div class="valid-feedback">¡Correcto!</div>
+        <div class="invalid-feedback">Seleccionar una opción</div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-row">
+          <!--Fecha-->
+          <label for="inputFecha" class="col-4 ml-5 col-form-label">Fecha:</label>
+          <div class="col mr-3">
+            <div class="input-group date" id="datetimepickerFE" data-target-input="nearest">
+              <input type="text" name="bol_fecha" class="form-control datetimepicker-input"
+                data-target="#datetimepickerFE" required />
+              <div onclick="openDate()" class="input-group-append" data-target="#datetimepickerFE"
+                data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              </div>
+              <div class="valid-feedback">
+                ¡Correcto!
+              </div>
+              <div class="invalid-feedback">
+                Ingresar la fecha
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Tabla de Items-->
+    <div class="card shadow mb-4 mr-3">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 mb-3">
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal"><i
+                class="fas fa-plus"></i></button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Cantidad</th>
+                <th>U.Medida</th>
+                <th>Descripción</th>
+                <th>P. Unitario</th>
+                <th>Importe</th>
+                <th style="width:5px"><i class="fa fa-edit"></i></th>
+                <th style="width:5px"><i class="fa fa-minus-circle"></i></th>
+              </tr>
+            </thead>
+
+            <tbody id='tabla'>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!--Importe Total-->
+        <div class="row mt-2 mr-2 justify-content-end">
+          <label for="inputTotal" class="col-2 col-form-label">Total:</label>
+          <input type="text" class="col-2 form-control" name="bol_mtotal" id="inputTotal" readonly=true>
+        </div>
+        <div class="card-footer">
+          <!-- /.container-fluid -->
+          <div class="row justify-content-center">
+            <button class="btn btn-primary mt-3" type="submit"><i class="fa fa-check-circle"></i>
+              Registrar Boleta
+            </button>
+          </div>
+        </div>
+      </div>
+  </form>
+  {{else}}
+  <form class="needs-validation" method="POST" action="/dashboard/boleta" novalidate>
+    <!--Numero de documento-->
+    <input type="text" name="tipo_cmp" value="2" style="visibility: hidden;">
+    <div class="form-group form-row">
+      <div class="col-6 row">
+        <label for="inputDocumento" class="col-4 col-form-label">Documento:</label>
+        <div class="col-6">
+          <input type="text" name="documentox" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento"
+            minlength="8" maxlength="11" required>
+          <div class="valid-feedback">¡Correcto!</div>
+          <div class="invalid-feedback">Ingresar documento</div>
+          <!--Button verify-->
+
+        </div>
+        <div class="col-2">
+          <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <div class="col-6 row">
+        <label for="inputMoneda" class="col-6 col-form-label">Tipo de Moneda:</label>
+        <div class="col-6">
+          <select class="form-control mb-2" name="bol_tipo_moneda" id="inputMoneda" required>
+            <option disabled></option>
+            <option value="SOLES">SOLES</option>
+            <option value="DOLARES">DOLARES</option>
+            <option value="EUROS">EUROS</option>
+          </select>
+          <div class="valid-feedback">
+            ¡Correcto!
+          </div>
+          <div class="invalid-feedback">
+            Ingresar el tipo de moneda.
+          </div>
+        </div>
       </div>
     </div>
 
@@ -54,49 +222,6 @@
       </div>
     </div>
 
-    {{else}}
-    <div class="form-group form-row">
-      <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
-      <div class="col mr-3">
-        <input type="text" name="documentox" class="form-control" id="inputDocumento" minlength="8" maxlength="11"
-          required>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Ingresar documento</div>
-      </div>
-
-      <!--Button verify-->
-      <div class="col-8">
-        <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
-      </div>
-    </div>
-
-    <!--Emisor-->
-    <div class="form-group form-row">
-      <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
-      <div class="col mr-3">
-        <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Nombres" required>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Ingresar el nombre</div>
-      </div>
-      <div class="col mr-3">
-        <input type="text" name="apellido" class="form-control" id="inputApellido" placeholder="Apellidos" required>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Ingresar el apellido</div>
-      </div>
-    </div>
-
-    <!--Dirección-->
-    <div class="form-group form-row">
-      <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
-      <div class="col mr-3">
-        <input type="text" name="direccion" class="form-control" id="inputDireccion" required>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Ingresar la dirección</div>
-      </div>
-    </div>
-    {{/if}}
-
-
     <div class="form-group form-row">
       <!--Modo de pago-->
       <label for="inputPago" class="col-2 col-form-label">Modo de Pago:</label>
@@ -117,9 +242,10 @@
           <label for="inputFecha" class="col-4 ml-5 col-form-label">Fecha:</label>
           <div class="col mr-3">
             <div class="input-group date" id="datetimepickerFE" data-target-input="nearest">
-              <input type="text" name="bol_fecha" class="form-control datetimepicker-input" data-target="#datetimepickerFE"
-                required />
-              <div onclick="openDate()" class="input-group-append" data-target="#datetimepickerFE" data-toggle="datetimepicker">
+              <input type="text" name="bol_fecha" class="form-control datetimepicker-input"
+                data-target="#datetimepickerFE" required />
+              <div onclick="openDate()" class="input-group-append" data-target="#datetimepickerFE"
+                data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
               </div>
               <div class="valid-feedback">
@@ -139,7 +265,8 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 mb-3">
-            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i></button>
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal"><i
+                class="fas fa-plus"></i></button>
           </div>
         </div>
         <div class="table-responsive">
@@ -165,7 +292,7 @@
         <!--Importe Total-->
         <div class="row mt-2 mr-2 justify-content-end">
           <label for="inputTotal" class="col-2 col-form-label">Total:</label>
-          <input type="text" class="col-2 form-control" name="bol_mtotal" id="inputTotal" disabled>
+          <input type="text" class="col-2 form-control" name="bol_mtotal" id="inputTotal" readonly=true>
         </div>
         <div class="card-footer">
           <!-- /.container-fluid -->
@@ -177,6 +304,7 @@
         </div>
       </div>
   </form>
+  {{/if}}
   <!-- End of form -->
 
 </div>
@@ -186,7 +314,8 @@
 <!-- End of Main Content -->
 
 <!-- AddModal-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -199,8 +328,8 @@
         <form action="#" class="needs-validation" method="POST" novalidate>
           <div class="form-group form-row">
             <label for="inputCantidad" class="col-4 col-form-label">Cantidad:</label>
-            <input type="number" name="detb_cantidad" class="col-8 form-control mb-2" id="inputCantidad" onchange="refresh(this.value)"
-              required>
+            <input type="number" name="detb_cantidad" class="col-8 form-control mb-2" id="inputCantidad"
+              onchange="refresh(this.value)" required>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar cantidad</div>
           </div>
@@ -208,9 +337,10 @@
           <div class="form-group form-row">
             <label for="inputUnidad" class="col-4 col-form-label">Unidad de Medida:</label>
             <select class="col-8 form-control mb-2" name="pro_umed" id="inputUnidad" required>
-              <option value="UNIDAD">UNIDAD</option>
-              <option value="KILO">KILO</option>
-              <option value="TONELADA">TONELADA</option>
+              <option value=""></option>
+              {{#each unidad_medida}}
+              <option value="{{umed_id}}">{{umed_nombre}}</option>
+              {{/each}}
             </select>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Seleccionar Medida</div>
@@ -218,12 +348,15 @@
 
           <div class="form-group form-row">
             <label for="inputDescripcion" class="col-4 col-form-label">Descripcion:</label>
-            <select class="col-8 form-control mb-2" name="pro_nombre" id="inputDescripcion" onchange="seleccion(this.value)"
-              required>
+            <select class="col-8 form-control mb-2" name="pro_nombre" id="inputDescripcion"
+              onchange="seleccion(this.value)" required>
               <option value=""></option>
+
               {{#each productos}}
-              <option value="{{pro_precio}}"> {{pro_nombre}} </option>
+              <option value="{{pro_id}},{{pro_precio}},{{pro_nombre}}"> {{pro_nombre}} </option>
+
               {{/each}}
+
             </select>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Seleccionar medida</div>
