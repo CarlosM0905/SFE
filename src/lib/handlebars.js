@@ -1,5 +1,8 @@
 const {format,register}= require('timeago.js');
 
+
+
+
 // Editar para formato local
 const localeFunc = (number, index, total_sec) => {
     // number: the timeago / timein number;
@@ -30,6 +33,10 @@ const helpers = {};
 helpers.timeago = (timestamp) =>{
 
     return format(timestamp, 'es_ES');
+    
 }
+
+
+
 
 module.exports = helpers;

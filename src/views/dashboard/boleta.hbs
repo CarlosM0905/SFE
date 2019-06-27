@@ -1,6 +1,6 @@
-<!-- Begin Page Content -->
+<!-- Inicio de Contenido -->
 <div class="container-fluid">
-  <!-- Page Heading -->
+  <!-- Cabecera de Pagina -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Boleta Electrónica</h1>
   </div>
@@ -16,7 +16,8 @@
       <div class="col-6 row">
         <label for="inputDocumento" class="col-4 col-form-label">Documento:</label>
         <div class="col-6">
-          <input type="text" name="documentox" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento"             minlength="8" maxlength="11" required>
+          <input type="text" name="documentox" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento"
+            minlength="8" maxlength="11" required>
           <div class="valid-feedback">¡Correcto!</div>
           <div class="invalid-feedback">Ingresar documento</div>
         </div>
@@ -94,7 +95,7 @@
           <div class="col mr-3">
             <div class="input-group date" id="datetimepickerFE" data-target-input="nearest">
               <input type="text" name="bol_fecha" class="form-control datetimepicker-input"
-                data-target="#datetimepickerFE" required />
+                data-target="#datetimepickerFE" id='inputFecha' required />
               <div onclick="openDate()" class="input-group-append" data-target="#datetimepickerFE"
                 data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -149,6 +150,13 @@
               Registrar Boleta
             </button>
           </div>
+          <div class="row justify-content-center">
+            <button class="btn btn-primary mt-3 mb-3" type="button" onclick="genPDF()"><i
+                class="fa fa-check-circle"></i>
+              Generar Boleta
+            </button>
+
+          </div>
         </div>
       </div>
       <!--Fin tabla de Items-->
@@ -156,6 +164,17 @@
 
   {{else}}
   <form class="needs-validation" method="POST" action="/dashboard/boleta" novalidate>
+    <!--
+    <div class="form-group form-row">
+      <label for="inputNumBoleta" class="col-4 col-form-label">Numero:</label>
+      <div class="col mr-3">
+        <input type="text" name="numBoleta" class="form-control" id="inputNumBoleta"
+          readonly='True' required>
+        <div class="valid-feedback">¡Correcto!</div>
+        <div class="invalid-feedback">Ingresar la dirección</div>
+      </div>
+    </div>
+-->
     <input type="text" name="tipo_cmp" value="2" style="visibility: hidden;">
     <div class="form-group form-row">
       <!--Numero de documento-->
@@ -242,7 +261,7 @@
           <div class="col mr-3">
             <div class="input-group date" id="datetimepickerFE" data-target-input="nearest">
               <input type="text" name="bol_fecha" class="form-control datetimepicker-input"
-                data-target="#datetimepickerFE" required />
+                data-target="#datetimepickerFE" id="inputFecha" required />
               <div onclick="openDate()" class="input-group-append" data-target="#datetimepickerFE"
                 data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -270,7 +289,7 @@
             <thead>
               <tr>
                 <th>Cantidad</th>
-                <th>U.Medida</th>
+                <th>U. Medida</th>
                 <th>Descripción</th>
                 <th>P. Unitario</th>
                 <th>Importe</th>
@@ -291,12 +310,21 @@
 
         <!--Botón Registrar(Envía todo a la base de Datos)-->
         <div class="card-footer">
+
           <!-- /.container-fluid -->
           <div class="row justify-content-center">
             <button class="btn btn-primary mt-3 mb-3" type="submit"><i class="fa fa-check-circle"></i>
               Registrar Boleta
             </button>
+          </div>}
+
+          <div class="row justify-content-center">
+            <button class="btn btn-primary mt-3 mb-3" type="button" onclick="genPDF()"><i
+                class="fa fa-check-circle"></i>
+                Generar Boleta
+            </button>
           </div>
+
         </div>
       </div>
       <!--Fin tabla de Items-->
@@ -382,3 +410,82 @@
   </div>
 </div>
 <!-- End of Modal -->
+
+<script>
+  function genPDF() {
+
+    var doc = new jsPDF();
+
+    let numDocumento = document.getElementById('inputDocumento').value;
+    let tipoMoneda = document.getElementById('inputMoneda').value;
+    let nombre = document.getElementById('inputNombre').value;
+    let apellido = document.getElementById('inputApellido').value;
+    let direccion = document.getElementById('inputDireccion').value;
+    let modo_pago = document.getElementById('inputPago').value;
+    let fecha = document.getElementById('inputFecha').value;
+
+    let aCantidad = document.getElementsByName('cantidad');
+    let aUnidad = document.getElementsByClassName('vUnidad');
+    let aDescripcion = document.getElementsByClassName('vDescripcion');
+    let aValor = document.getElementsByName('valor');
+    let aMonto = document.getElementsByName('monto');
+
+    let total = document.getElementById('inputTotal').value;
+    let resultados = [];
+
+
+    for (let i = 0; i < aCantidad.length; i++) {
+      let arr = {"Cantidad":"","U. Medida":"" , "Descripcion":"","P. Unitario":"","Importe":""};
+      arr["Cantidad"] = aCantidad[i].value;
+      arr["U. Medida"] = aUnidad[i].innerHTML;
+      arr["Descripcion"] = aDescripcion[i].innerHTML;
+      arr["P. Unitario"] = aValor[i].value;
+      arr["Importe"] = aMonto[i].value;
+      
+      resultados.push(arr);
+    }
+    console.log(resultados);
+
+    doc.text('Numero de Documento:', 10, 10);
+    doc.text(numDocumento, 80, 10);
+
+    doc.text('Tipo de Moneda:', 10, 20);
+    doc.text(tipoMoneda, 80, 20);
+
+    doc.text('Nombre:', 10, 30);
+    doc.text(nombre, 80, 30);
+
+    doc.text('Apellidos:', 10, 40);
+    doc.text(apellido, 80, 40);
+
+    doc.text('Direccion:', 10, 50);
+    doc.text(direccion, 80, 50);
+
+    doc.text('Modo de Pago:', 10, 60);
+    doc.text(tipoMoneda, 80, 60);
+
+    doc.text('Fecha:', 110, 60);
+    doc.text(fecha, 170, 60);
+
+    doc.line(10,65,210,65,'F');
+    
+    var columnas = createHeaders(['Cantidad', 'U. Medida', 'Descripcion', 'P. Unitario', 'Importe']);
+
+  function createHeaders(keys) {
+    return keys.map(key => ({
+      'name': key,
+      'prompt': key,
+      'width':50,
+      'align':'center',
+      'padding':0
+    }));
+  }
+    doc.table(10,80,resultados,columnas);
+  
+    doc.text('Total:', 125, 170);
+    doc.text(total, 165, 170);
+
+    doc.save('a4.pdf')
+
+  }
+</script>

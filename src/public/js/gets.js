@@ -1,4 +1,5 @@
 var contador = 1;
+
 function refresh(cantidad) {
   const precio = document.getElementById('inputValor').value;
   document.getElementById('inputMonto').value = (cantidad * precio).toFixed(2);
@@ -16,15 +17,15 @@ function seleccion(precio) {
 };
 //var temp = 1;
 
-function openDate(){
+function openDate() {
   $('#datetimepickerFE').datetimepicker({
-      locale: 'es',
-      format: 'YYYY-MM-DD'
+    locale: 'es',
+    format: 'YYYY-MM-DD'
   });
 }
 //Boleta and factura issues
 function prueba() {
-  console.log("primer "+contador);
+  console.log("primer " + contador);
   let cantidad = document.getElementById('inputCantidad').value;
   let unidad = document.getElementById('inputUnidad').value.split(',')[1];
   let descripcion = document.getElementById('inputDescripcion').value.split(',')[2];
@@ -33,7 +34,7 @@ function prueba() {
   let monto = document.getElementById('inputMonto').value;
 
   let cell1 = document.createElement('td');
-  cell1.setAttribute('id','')
+  cell1.setAttribute('id', '')
   let input1 = document.createElement('input');
   //  let btn1 = document.createElement('button');
   input1.name = 'cantidad';
@@ -41,12 +42,14 @@ function prueba() {
   input1.type = 'hidden';
 
   let cell2 = document.createElement('td');
+  cell2.className = 'vUnidad';
   let input2 = document.createElement('input');
   input2.name = 'unidad';
   input2.value = document.getElementById('inputUnidad').value.split(',')[0];
   input2.type = 'hidden';
 
   let cell3 = document.createElement('td');
+  cell3.className = 'vDescripcion';
   let input3 = document.createElement('input');
   input3.name = 'descripcion';
   input3.value = id_pro;
@@ -74,8 +77,8 @@ function prueba() {
   btn_edit.setAttribute('type', 'button');
   btn_edit.setAttribute('data-toggle', 'modal');
   btn_edit.setAttribute('data-target', '#addModal');
-  
-   btn_edit.appendChild(i_edit);
+
+  btn_edit.appendChild(i_edit);
   cell6.appendChild(btn_edit);
 
 
@@ -87,7 +90,7 @@ function prueba() {
   btn_delete.setAttribute('type', 'button');
   btn_delete.setAttribute('data-toggle', 'modal');
   btn_delete.setAttribute('data-target', '#deleteModal');
-  btn_delete.setAttribute('onclick','borrar(this.parentNode.parentNode.parentNode, this.parentNode.parentNode)');
+  btn_delete.setAttribute('onclick', 'borrar(this.parentNode.parentNode.parentNode, this.parentNode.parentNode)');
   btn_delete.appendChild(i_delete);
   cell7.appendChild(btn_delete);
   //<button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i></button>
@@ -98,7 +101,7 @@ function prueba() {
   cell4.innerHTML = valor;
   cell5.innerHTML = monto;
   let fila = document.createElement('tr');
-  fila.setAttribute('id',contador);
+  fila.setAttribute('id', contador);
   contador++;
   fila.append(cell1, input1, cell2, input2, cell3, input3, cell4, input4, cell5, input5, cell6, cell7);
 
@@ -106,7 +109,7 @@ function prueba() {
   tabla.appendChild(fila);
   total();
   clean();
-  
+
 };
 
 function clean() {
@@ -131,12 +134,12 @@ function total() {
   var subtotal = (total / 1.18).toFixed(2);
   var igv = (total - subtotal).toFixed(2);
 
-    document.getElementById('inputSubtotal').value = subtotal;
-    document.getElementById('inputIGV').value = igv;
-    document.getElementById('inputTotalLetras').value = numeroALetras(total);
+  document.getElementById('inputSubtotal').value = subtotal;
+  document.getElementById('inputIGV').value = igv;
+  document.getElementById('inputTotalLetras').value = numeroALetras(total);
 }
 
-var numeroALetras = (function() {
+var numeroALetras = (function () {
   function Unidades(num) {
 
     switch (num) {
@@ -309,7 +312,7 @@ var numeroALetras = (function() {
     };
 
     if (data.centavos > 0) {
-      data.letrasCentavos = 'CON ' + (function() {
+      data.letrasCentavos = 'CON ' + (function () {
         if (data.centavos == 1)
           return Millones(data.centavos) + ' ' + data.letrasMonedaCentavoSingular;
         else
