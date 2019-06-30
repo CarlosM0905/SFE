@@ -17,7 +17,7 @@ router.get('/inventario', async (req, res) => {
 
   // Se solicita a la bd las categorias, los productos y las unidades de medida
   const categorias = await pool.query('SELECT cat_id, cat_tipo FROM categoria');
-  const resultados = await pool.query('SELECT pro_id, cat_tipo, pro_nombre, pro_precio, pro_stock FROM producto P INNER JOIN categoria C ON P.cat_id = C.cat_id');
+  const resultados = await pool.query('SELECT * FROM producto INNER JOIN categoria ON producto.cat_id = categoria.cat_id INNER JOIN unidad_medida ON producto.umed_id = unidad_medida.umed_id;');
   const u_med = await pool.query('SELECT umed_id, umed_nombre FROM unidad_medida');
 
   // Se muesta la vista inventario y se envian los objetos
@@ -78,36 +78,118 @@ router.get('/boleta', async (req, res) => {
 // Ruta localhost:5000/dashboard/inventario
 router.post('/inventario', async (req, res) => {
 
+  if (req.body.producto_eliminado === undefined) {
+    //  Se guardan los datos del producto a registrar
+    let pro_nombre = req.body.pro_nombre;
+    let pro_precio = req.body.pro_precio;
+    let pro_stock = req.body.pro_stock;
+    let cat_id = req.body.cat_tipo;
+    let umed_id = req.body.umed_nombre;
+
+    // Se crea el objeto nuevoProducto
+    const newProducto = {
+      pro_nombre,
+      pro_precio,
+      pro_stock,
+      cat_id,
+      umed_id
+    }
+    // Se inserta en la tabla
+    await pool.query('INSERT INTO producto SET ?', [newProducto]);
+  } 
+  else {
+    // Sino se eliminaran productos
+
+    // Se obtiene el arreglo de productos
+    let productos = req.body.producto_eliminado;
+    // Tambien el tamaño del arreglo
+    let tam = Object.keys(productos).length;
+
+    // Se elimina cada uno de los elementos
+    for (let index = 0; index < tam; index++) {
+      await pool.query('DELETE FROM producto WHERE pro_id = ?',[productos[index]]);
+    }
+  }
+
   // Se consultan las categorias, los productoss y las unidades de medida de la base de datos
   const categorias = await pool.query('SELECT cat_id, cat_tipo FROM categoria');
-  const resultados = await pool.query('SELECT pro_id, cat_tipo, pro_nombre, pro_precio, pro_stock FROM producto P INNER JOIN categoria C ON P.cat_id = C.cat_id');
+  const resultados = await pool.query('SELECT * FROM producto INNER JOIN categoria ON producto.cat_id = categoria.cat_id INNER JOIN unidad_medida ON producto.umed_id = unidad_medida.umed_id;');
   const u_med = await pool.query('SELECT umed_id, umed_nombre FROM unidad_medida');
 
   // Se muestra la vista con los objetos
-  res.render('dashboard/inventario', {
+  /*res.render('dashboard/inventario', {
     resultados,
     categorias,
     u_med
   });
+*/
+  res.redirect('/inventario');
 
-  //  Se guardan los datos del producto a registrar
-  let pro_nombre = req.body.pro_nombre;
-  let pro_precio = req.body.pro_precio;
-  let pro_stock = req.body.pro_stock;
-  let cat_id = (await pool.query('SELECT cat_id FROM categoria WHERE cat_tipo = ?', [req.body.cat_tipo]));
-
-  // Se crea el objeto nuevoProducto
-  const newProducto = {
-    pro_nombre,
-    pro_precio,
-    pro_stock,
-    cat_id
-  }
-
-  // Se inserta el objeto en la base de datos
-  await pool.query('INSERT INTO producto SET ?', [newProducto]);
 });
 
+router.post('/clientes', async (req,res)=>{
+
+  if(req.body.tipo === 'natural'){
+    // Si el tipo es natural
+
+    // Se obtienen todos los datos de la persona natural
+    let pe_nat_dni = req.body.dni;
+    let pe_nat_nombres = req.body.nombre;
+    let pe_nat_apellidos = req.body.apellidos;
+    let pe_nat_direccion = req.body.direccion;
+    let pe_nat_email = req.body.email;
+
+    // Se crea un objeto persona_natural
+    let newPersonaNatural = {
+      pe_nat_nombres,
+      pe_nat_apellidos,
+      pe_nat_dni,
+      pe_nat_direccion,
+      pe_nat_email
+    }
+
+    // Se inserta en la tabla persona natural
+    await pool.query('INSERT INTO persona_natural set ?',[newPersonaNatural]);
+  }
+  else{
+    // Si el tipo es juridico
+
+    // Se obtienen todos los datos de la persona juridico
+    let pe_jur_razon_social = req.body.razon_social;
+    let pe_jur_ruc = req.body.ruc;
+    let pe_jur_direccion = req.body.direccion;
+    let pe_jur_email = req.body.email;
+
+    // Se crea un objeto persona_juridica
+    let newPersonaJuridica = {
+      pe_jur_razon_social,
+      pe_jur_ruc,
+      pe_jur_direccion,
+      pe_jur_email
+    }
+
+    // Se inserta en la base de datos
+    await pool.query('INSERT INTO persona_juridica set ?',[newPersonaJuridica]);
+
+  }
+
+  res.redirect('/dashboard/clientes')
+});
+
+router.post('/clientes_delete', async (req,res) =>{
+  
+  // Se obtienen los ruc y dni
+  let clientes_eliminados = req.body.cliente_eliminado;
+  let tam = Object.keys(clientes_eliminados).length;
+
+  // Se itera y se va eliminando de la base de datos
+  for (let index = 0; index < tam; index++) {
+    await  pool.query('DELETE FROM persona_natural WHERE pe_nat_dni = ?',[clientes_eliminados[index]]);
+    await  pool.query('DELETE FROM persona_juridica WHERE pe_jur_ruc = ?',[clientes_eliminados[index]]);
+  }
+  
+  res.redirect('/dashboard/clientes')
+});
 
 router.post('/factura', async (req, res) => {
 
@@ -149,6 +231,7 @@ router.post('/factura', async (req, res) => {
     newFactura,
     unidad_medida
   });
+
 });
 
 
@@ -226,13 +309,13 @@ router.post('/', async (req, res) => {
 
     // Se busca el id de la persona natural 
     let pe_nat_id = (await pool.query('SELECT pe_nat_id FROM persona_natural WHERE pe_nat_dni = ?', [req.body.documentox]))[0].pe_nat_id;
-    
+
     //Se guarda la fecha de la boleta
     let bol_fecha = req.body.bol_fecha;
 
     //Se guarda el id del modo de pago
     let mod_id = (await pool.query('SELECT mod_id FROM modo_pago WHERE mod_nombre = ?', [req.body.modopago]))[0].mod_id;
-    
+
     //Se guarda el tipo de moneda
     let bol_tipo_moneda = req.body.bol_tipo_moneda;
 
@@ -254,7 +337,7 @@ router.post('/', async (req, res) => {
       mod_id
     }
 
-    // Se inserta la vboleta en la BD
+    // Se inserta la boleta en la BD
     await pool.query('INSERT INTO boleta SET ?', [boleta]);
 
     // Se obtiene el objeto de la cantidad de elementos de arreglos
@@ -269,7 +352,7 @@ router.post('/', async (req, res) => {
       const detb_monto = aMonto[index];
       const detb_cantidad = aCantidad[index];
       const umed_id = aUnidad[index];
-    
+
       // Se crea el objeto nuevoDetalle
       const newDetalle = {
         bol_id,
@@ -321,10 +404,10 @@ router.post('/boleta', async (req, res) => {
 
   // Se obtiene los modos de pago
   const modo_pago = await pool.query('SELECT * FROM modo_pago');
-  
+
   // Se obtienen los productos
   const productos = await pool.query('SELECT pro_id, pro_nombre, pro_stock, pro_precio FROM producto');
-  
+
   // Se obtienen la unidad de medida
   const unidad_medida = await pool.query('SELECT * FROM unidad_medida');
 

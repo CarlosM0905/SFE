@@ -1,10 +1,10 @@
 <div class="container-fluid">
 
-  <!-- Page Heading -->
+  <!-- Cabecera de Pagina -->
   <h1 class="h3 mb-2 text-gray-800">Clientes</h1>
   <p class="mb-4">Listado de clientes</p>
 
-  <!-- DataTales Example -->
+  <!-- Tabla de Datos -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <div class="row">
@@ -12,15 +12,17 @@
           <h6 class="m-0 font-weight-bold text-primary">Clientes</h6>
         </div>
         <div class="col-md-6 d-flex flex-row-reverse">
-
-          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">Eliminar</button>
-          <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal" data-target="#addModal">Agregar</button>
+          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+            data-target="#deleteModal">Eliminar</button>
+          <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal"
+            data-target="#addModal">Agregar</button>
         </div>
       </div>
 
     </div>
     <div class="card-body">
       <div class="table-responsive">
+        <form action="/dashboard/clientes_delete" method="POST" id="clientes">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
@@ -28,110 +30,167 @@
               <th>Razón Social/Nombre</th>
               <th>Dirección</th>
               <th>Email</th>
+              <th>Eliminar</th>
             </tr>
           </thead>
           <tbody>
             {{#each results}}
-              <tr>
-                <td>{{pe_jur_ruc}}</td>
-                <td>{{pe_jur_razon_social}}</td>
-                <td>{{pe_jur_direccion}}</td>
-                <td>{{pe_jur_email}}</td>
-              </tr>
+            <tr>
+              <td>{{pe_jur_ruc}}</td>
+              <td>{{pe_jur_razon_social}}</td>
+              <td>{{pe_jur_direccion}}</td>
+              <td>{{pe_jur_email}}</td>
+              <td class="text-center"><input type="checkbox" name="cliente_eliminado" value="{{pe_jur_ruc}}"></td>
+            </tr>
             {{else}}
-              <!--        <h6>
-                        No hay clientes registrados.
-                      </h6>-->
+            <h6 class="m-0 font-weight-bold text-primary">No hay clientes registrados</h6>
             {{/each}}
           </tbody>
         </table>
+        </form>
       </div>
     </div>
   </div>
 
 </div>
-<!-- /.container-fluid -->
 
-</div>
 <!-- AddModal-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Agregar Cliente</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        <button class="close" type="button" data-dismiss="modal">
           <span aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
-        <form action="#" class="needs-validation" novalidate>
-          <div class="row justify-content-center mb-3">
-            <div class="col ml-3 mr-3 ">
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input type="radio" class="form-check-input" name="optradio">Natural
-                </label>
-              </div>
-            </div>
-            <div class="col ml-3 mr-3">
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input type="radio" class="form-check-input" name="optradio">Jurídica
-                </label>
-              </div>
+        <!-- Radios Button  --->
+        <div class="form-row form-group mb-3">
+          <!-- Natural  -->
+          <div class="col mr-3 ">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" id="radio_btn_nat" name="optradio" value="natural"
+                  onclick="intercambiarFormCliente(this.value)" checked>Natural
+              </label>
             </div>
           </div>
-          <div class="form-group form-row">
-            <label for="inputCategoria" class="col-4 col-form-label">Categoria:</label>
-            <input type="text" class="col-8 form-control mb-2" id="inputCategoria" required>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar categoria</div>
+          <!-- Juridica  -->
+          <div class="col mr-3">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" id="radio_btn_jur" name="optradio" value="juridica"
+                  onclick="intercambiarFormCliente(this.value)">Jurídica
+              </label>
+            </div>
           </div>
+        </div>
 
-          <div class="form-group form-row">
-            <label for="inputNombre" class="col-4 col-form-label">Nombre:</label>
-            <input type="text" class="col-8 form-control mb-2" id="inputNombre" required>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar nombre</div>
-          </div>
+        <!-- Form Persona Natural -->
+        <div id="form_natural" class="d-block">
+          <form action="/dashboard/clientes" class="needs-validation" id="form_per_nat" method="POST" novalidate>
 
-          <div class="form-group form-row">
-            <label for="inputPrecio" class="col-4 col-form-label">Precio:</label>
-            <input type="number" class="col-8 form-control mb-2" id="inputPrecio" required>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar el precio</div>
-          </div>
+            <input type="text" name="tipo" value="natural" hidden>
 
-          <div class="form-group form-row">
-            <label for="inputStock" class="col-4 col-form-label">Stock:</label>
-            <input type="text" class="col-8 form-control mb-2" id="inpuStock" required>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar el stock</div>
-          </div>
+            <div class="form-group form-row">
+              <label for="inputDNI" class="col-4 col-form-label">DNI:</label>
+              <input type="text" class="col-8 form-control mb-2" id="inputDNI" name="dni" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar el DNI</div>
+            </div>
 
-          <div class="form-group form-row">
-            <label for="inputUnidad" class="col-4 col-form-label">Unidad:</label>
-            <select class="col-8 form-control mb-2" id="inputUnidad" required>
-              <option value="1"></option>
-              <option value="2">Objeto 2</option>
-              <option value="3">Objeto 3</option>
-            </select>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Seleccionar medida</div>
-          </div>
+            <div class="form-group form-row">
+              <label for="inputNombre" class="col-4 col-form-label">Nombres:</label>
+              <input type="text" class="col-8 form-control mb-2" id="inputNombre" name="nombre" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar los nombres</div>
+            </div>
 
-        </form>
+            <div class="form-group form-row">
+              <label for="inputApellidos" class="col-4 col-form-label">Apellidos:</label>
+              <input type="text" class="col-8 form-control mb-2" id="inputApellidos" name="apellidos" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar los apellidos</div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="inputDireccion" class="col-4 col-form-label">Direccion:</label>
+              <input type="text" class="col-8 form-control mb-2" id="inputDireccion" name="direccion" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar la direccion</div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="inputStock" class="col-4 col-form-label">Email:</label>
+              <input type="email" class="col-8 form-control mb-2" id="inputEmail" name="email" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar el email</div>
+            </div>
+          </form>
+        </div>
+        <!--Fin form Persona Natural -->
+
+        <!-- Form Persona Juridica -->
+        <div id="form_juridica" class="d-none">
+          <form action="/dashboard/clientes" class="needs-validation" id="form_per_jur" method="POST" novalidate>
+
+            <input type="text" name="tipo" value="juridica" hidden>
+
+            <div class="form-group form-row">
+              <label for="inputRUC" class="col-4 col-form-label">RUC:</label>
+              <input type="text" class="col-8 form-control mb-2" id="inputRUC" name="ruc" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar el RUC</div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="inputRazonSocial" class="col-4 col-form-label">Razon Social:</label>
+              <input type="text" class="col-8 form-control mb-2" id="inputRazonSocial" name="razon_social" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar los nombres</div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="inputDireccion" class="col-4 col-form-label">Direccion:</label>
+              <input type="text" class="col-8 form-control mb-2" id="inputDireccion" name="direccion" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar la direccion</div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="inputStock" class="col-4 col-form-label">Email:</label>
+              <input type="email" class="col-8 form-control mb-2" id="inputEmail" name="email" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar el email</div>
+            </div>
+          </form>
+        </div>
+        <!--Fin form Persona Juridica -->
+
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-sm btn-success" type="button" data-dismiss="modal">Aceptar</button>
-        <button class="btn btn-sm btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+
+      <div id="btn_natural" class="d-block" >
+        <div class="modal-footer">
+          <button class="btn btn-sm btn-success" type="submit" form="form_per_nat"><i class="fas fa-user-tie"></i> Aceptar</button>
+          <button class="btn btn-sm btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
       </div>
+
+      <div id="btn_juridica" class="d-none">
+        <div class="modal-footer">
+          <button class="btn btn-sm btn-success" type="submit" form="form_per_jur"><i class="far fa-building"></i> Aceptar</button>
+          <button class="btn btn-sm btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
 <!-- Delete Modal-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -140,9 +199,9 @@
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <div class="modal-body">Seleccione "Si" para eliminar la fila, sino Cancelar.</div>
+      <div class="modal-body">Seleccione "Si" para eliminar la(s) fila(s), sino Cancelar.</div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button" data-dismiss="modal">Si</button>
+        <button class="btn btn-primary" form="clientes" type="submit">Si</button>
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
       </div>
     </div>

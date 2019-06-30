@@ -329,3 +329,25 @@ var numeroALetras = (function () {
   };
 })();
 
+function intercambiarFormCliente(opcion) {
+  let btnNatural = document.getElementById('btn_natural');
+  let btnJuridica = document.getElementById('btn_juridica');
+
+  let formNatural = document.getElementById('form_natural');
+  let formJuridica = document.getElementById('form_juridica');
+
+  if (opcion === 'natural') {
+
+
+    formNatural.className = 'd-block';
+    formJuridica.className = 'd-none';
+    btnNatural.className = 'd-block';
+    btnJuridica.className = 'd-none';
+  } else {
+
+    formJuridica.className = 'd-block';
+    formNatural.className = 'd-none';
+    btnNatural.className = 'd-none';
+    btnJuridica.className = 'd-block';
+  }
+}

@@ -144,7 +144,6 @@
 
         <!--Botón Registrar(Envía todo a la base de Datos)-->
         <div class="card-footer">
-          <!-- /.container-fluid -->
           <div class="row justify-content-center">
             <button class="btn btn-primary mt-3 mb-3" type="submit"><i class="fa fa-check-circle"></i>
               Registrar Boleta
@@ -164,17 +163,7 @@
 
   {{else}}
   <form class="needs-validation" method="POST" action="/dashboard/boleta" novalidate>
-    <!--
-    <div class="form-group form-row">
-      <label for="inputNumBoleta" class="col-4 col-form-label">Numero:</label>
-      <div class="col mr-3">
-        <input type="text" name="numBoleta" class="form-control" id="inputNumBoleta"
-          readonly='True' required>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Ingresar la dirección</div>
-      </div>
-    </div>
--->
+
     <input type="text" name="tipo_cmp" value="2" style="visibility: hidden;">
     <div class="form-group form-row">
       <!--Numero de documento-->
@@ -297,7 +286,6 @@
                 <th style="width:5px"><i class="fa fa-minus-circle"></i></th>
               </tr>
             </thead>
-            <!--Detalle llenado en ejecución-->
             <tbody id='tabla'></tbody>
           </table>
         </div>
@@ -311,7 +299,6 @@
         <!--Botón Registrar(Envía todo a la base de Datos)-->
         <div class="card-footer">
 
-          <!-- /.container-fluid -->
           <div class="row justify-content-center">
             <button class="btn btn-primary mt-3 mb-3" type="submit"><i class="fa fa-check-circle"></i>
               Registrar Boleta
@@ -329,12 +316,9 @@
       </div>
       <!--Fin tabla de Items-->
   </form>
-  <!-- End of form -->
+  <!--Fin del Formulario -->
   {{/if}}
-  <!-- Termina el if -->
 </div>
-<!-- /.container-fluid -->
-<!-- End of Main Content -->
 
 <!-- AddModal-->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

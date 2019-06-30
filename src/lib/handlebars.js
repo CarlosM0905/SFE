@@ -1,7 +1,5 @@
 const {format,register}= require('timeago.js');
-
-
-
+const pool = require('../database');
 
 // Editar para formato local
 const localeFunc = (number, index, total_sec) => {
@@ -35,6 +33,7 @@ helpers.timeago = (timestamp) =>{
     return format(timestamp, 'es_ES');
     
 }
+
 
 
 

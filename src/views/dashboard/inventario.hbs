@@ -1,9 +1,8 @@
 <div class="container-fluid">
-  <!-- Page Heading -->
+  <!-- Cabecera de Pagina -->
   <h1 class="h3 mb-2 text-gray-800">Inventario</h1>
   <p class="mb-4">Productos del inventario en general.</p>
 
-  <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <div class="row">
@@ -11,9 +10,10 @@
           <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
         </div>
         <div class="col-md-6 d-flex flex-row-reverse">
-
-          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">Eliminar</button>
-          <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal" data-target="#addModal">Agregar</button>
+          <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+            data-target="#deleteModal"><i class="fas fa-trash-alt"></i> Eliminar</button>
+          <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal"
+            data-target="#addModal"><i class="fas fa-plus-square"></i> Agregar</button>
         </div>
       </div>
 
@@ -21,6 +21,7 @@
 
     <div class="card-body">
       <div class="table-responsive">
+        <form action="/dashboard/inventario" method="POST" id="productos">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
@@ -29,25 +30,28 @@
               <th>Nombre</th>
               <th>Precio</th>
               <th>Stock</th>
+              <th>U. Medida</th>
+              <th>Eliminar</th>
             </tr>
           </thead>
 
           <tbody>
             {{#each resultados}}
-              <tr>
-                <td>{{pro_id}}</td>
-                <td>{{cat_tipo}}</td>
-                <td>{{pro_nombre}}</td>
-                <td>{{pro_precio}}</td>
-                <td>{{pro_stock}}</td>
-              </tr>
+            <tr>
+              <td>{{pro_id}}</td>
+              <td>{{cat_tipo}}</td>
+              <td>{{pro_nombre}}</td>
+              <td>{{pro_precio}}</td>
+              <td>{{pro_stock}}</td>
+              <td>{{umed_nombre}}</td>
+              <td class="text-center"><input type="checkbox" name="producto_eliminado" value="{{pro_id}}"></td>
+            </tr>
             {{else}}
-              <!--    <h6>
-                        No hay productos en el inventario
-                      </h6>-->
+            <h6 class="m-0 font-weight-bold text-primary">No hay productos en el inventario</h6>
             {{/each}}
           </tbody>
         </table>
+        </form>
       </div>
     </div>
   </div>
@@ -55,7 +59,8 @@
 </div>
 
 <!-- AddModal-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -65,12 +70,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/dashboard/inventario" method="POST" class="needs-validation" novalidate>
-
+        <form action="/dashboard/inventario" method="POST" class="needs-validation" id="formProducto" novalidate>
           <div class="form-group form-row">
             <label for="inputCategoria" class="col-4 col-form-label">Categoria:</label>
-            <select class="col-8 form-control mb-2" name="cat_tipo" id="inputCategoria"
-              required>
+            <select class="col-8 form-control mb-2" name="cat_tipo" id="inputCategoria" required>
               <option value=""></option>
               {{#each categorias}}
               <option value="{{cat_id}}"> {{cat_tipo}} </option>
@@ -82,28 +85,28 @@
 
           <div class="form-group form-row">
             <label for="inputNombre" class="col-4 col-form-label">Nombre:</label>
-            <input type="text" class="col-8 form-control mb-2" name = "pro_nombre" id="inputNombre" required>
+            <input type="text" class="col-8 form-control mb-2" name="pro_nombre" id="inputNombre" required>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar nombre</div>
           </div>
 
           <div class="form-group form-row">
             <label for="inputPrecio" class="col-4 col-form-label">Precio:</label>
-            <input type="number" class="col-8 form-control mb-2" name = "pro_precio" id="inputPrecio" required>
+            <input type="number" class="col-8 form-control mb-2" name="pro_precio" id="inputPrecio" required>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar el precio</div>
           </div>
 
           <div class="form-group form-row">
             <label for="inputStock" class="col-4 col-form-label">Stock:</label>
-            <input type="text" class="col-8 form-control mb-2" name = "pro_stock" id="inpuStock" required>
+            <input type="text" class="col-8 form-control mb-2" name="pro_stock" id="inpuStock" required>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar el stock</div>
           </div>
 
           <div class="form-group form-row">
             <label for="inputUnidad" class="col-4 col-form-label">Unidad:</label>
-            <select class="col-8 form-control mb-2" id="inputUnidad" required>
+            <select class="col-8 form-control mb-2" name="umed_nombre" id="inputUnidad" required>
               <option value=""></option>
               {{#each u_med}}
               <option value="{{umed_id}}"> {{umed_nombre}} </option>
@@ -112,19 +115,20 @@
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Seleccionar medida</div>
           </div>
-<div class="modal-footer">
-        <button class="btn btn-sm btn-success" type="submit" data-dismiss="modal">Aceptar</button>
-        <button class="btn btn-sm btn-danger" type="button" data-dismiss="modal">Cancelar</button>
-      </div>
+          <div class="modal-footer">
+            <button class="btn btn-sm btn-success" form="formProducto" type="submit">Aceptar</button>
+            <button class="btn btn-sm btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+          </div>
         </form>
       </div>
-      
+
     </div>
   </div>
 </div>
 
 <!-- Delete Modal-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -133,12 +137,10 @@
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <div class="modal-body">Seleccione "Si" para eliminar la fila, sino Cancelar.</div>
+      <div class="modal-body">Seleccione "Si" para eliminar la(s) fila(s), sino Cancelar.</div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button" data-dismiss="modal">Si</button>
+        <button class="btn btn-primary" form="productos" type="submit">Si</button>
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-
-
       </div>
     </div>
   </div>
