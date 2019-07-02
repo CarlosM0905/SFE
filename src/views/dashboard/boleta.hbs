@@ -13,49 +13,57 @@
     <input type="text" name="tipo_cmp" value="2" style="visibility: hidden;">
     <div class="form-group form-row">
       <!--Numero de documento-->
-      <div class="col-6 row">
-        <label for="inputDocumento" class="col-4 col-form-label">Documento:</label>
-        <div class="col-6">
-          <input type="text" name="documentox" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento"
-            minlength="8" maxlength="11" required>
-          <div class="valid-feedback">¡Correcto!</div>
-          <div class="invalid-feedback">Ingresar documento</div>
-        </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="form-row">
+          <label for="inputDocumento" class="col-xs-12 col-md-12 col-lg-4 col-form-label">Documento:</label>
+          <div class="col-sm-11 col-md-10 col-lg-6">
+            <input type="text" name="documento" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento"
+              minlength="8" maxlength="11" required>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Ingresar documento</div>
+          </div>
 
-        <!--Botón verificar-->
-        <div class="col-2">
-          <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+          <!--Botón verificar-->
+          <div class="col-sm-1 col-md-2 col-lg-2">
+            <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+          </div>
         </div>
       </div>
+
 
       <!--Combo Box Tipo de Moneda-->
-      <div class="col-6 row">
-        <label for="inputMoneda" class="col-6 col-form-label">Tipo de Moneda:</label>
-        <div class="col-6">
-          <select class="form-control mb-2" name="bol_tipo_moneda" id="inputMoneda" required>
-            <option disabled></option>
-            <option value="Soles">Soles</option>
-            <option value="Dolares">Dolares</option>
-            <option value="Euros">Euros</option>
-          </select>
-          <div class="valid-feedback">¡Correcto!</div>
-          <div class="invalid-feedback">Ingresar el tipo de moneda.</div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="form-row">
+          <label for="inputMoneda" class="col-lg-4 col-form-label">Tipo de Moneda:</label>
+          <div class="col-lg-8">
+            <select class="form-control mb-2" name="bol_tipo_moneda" id="inputMoneda" required>
+              <option value=""></option>
+              <option value="Soles">Soles</option>
+              <option value="Dolares">Dolares</option>
+              <option value="Euros">Euros</option>
+            </select>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Ingresar el tipo de moneda.</div>
+          </div>
         </div>
       </div>
+
     </div>
 
     <!--Emisor-->
     <div class="form-group form-row">
-      <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
+      <label for="inputCliente" class="col-md-12 col-lg-2 col-form-label">Señor(es):</label>
       <!--Nombres-->
-      <div class="col mr-3">
+      <div class="col-md-6 col-lg-5">
         <input type="text" name="nombre" class="form-control" id="inputNombre" value="{{newBoleta.nombres}}"
           placeholder="Nombres" required>
         <div class="valid-feedback">¡Correcto!</div>
         <div class="invalid-feedback">Ingresar el nombre</div>
       </div>
+
       <!--Apellidos-->
-      <div class="col mr-3">
+      <div class="col-md-6 col-lg-5">
         <input type="text" name="apellido" class="form-control" id="inputApellido" value="{{newBoleta.apellidos}}"
           placeholder="Apellidos" required>
         <div class="valid-feedback">¡Correcto!</div>
@@ -65,37 +73,45 @@
 
     <!--Dirección-->
     <div class="form-group form-row">
-      <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
-      <div class="col mr-3">
-        <input type="text" name="direccion" class="form-control" value="{{newBoleta.direccion}}" id="inputDireccion"
-          required>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Ingresar la dirección</div>
+      <div class="col">
+        <div class="form-row">
+          <label for="inputDireccion" class="col-md-12 col-lg-2 col-form-label">Dirección:</label>
+          <div class="col-md-12 col-lg-10">
+            <input type="text" name="direccion" class="form-control" value="{{newBoleta.direccion}}" id="inputDireccion"
+              required>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Ingresar la dirección</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="form-group form-row">
-      <!--Modo de pago-->
-      <label for="inputPago" class="col-2 col-form-label">Modo de Pago:</label>
-      <div class="col mr-3">
-        <select class="form-control" id="inputPago" name="modopago" required>
-          <option value=""></option>
-          {{#each modo_pago}}
-          <option value="{{mod_nombre}}">{{mod_nombre}}</option>
-          {{/each}}
-        </select>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Seleccionar una opción</div>
+      <div class="col-md-12 col-lg-6 my-1">
+        <div class="form-row">
+          <!--Modo de pago-->
+          <label for="inputPago" class="col-sm-12 col-md-4 col-form-label">Modo de Pago:</label>
+          <div class="col-sm-12 col-md-8">
+            <select class="form-control" id="inputPago" name="modopago" required>
+              <option value=""></option>
+              {{#each modo_pago}}
+              <option value="{{mod_nombre}}">{{mod_nombre}}</option>
+              {{/each}}
+            </select>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Seleccionar una opción</div>
+          </div>
+        </div>
       </div>
 
-      <!--Fecha-->
-      <div class="col-6">
+      <div class="col-md-12 col-lg-6 my-1">
         <div class="form-row">
-          <label for="inputFecha" class="col-4 ml-5 col-form-label">Fecha:</label>
-          <div class="col mr-3">
+          <!--Fecha-->
+          <label for="inputFecha" class="col-sm-12 col-md-4 col-form-label">Fecha:</label>
+          <div class="col-sm-12 col-md-8">
             <div class="input-group date" id="datetimepickerFE" data-target-input="nearest">
               <input type="text" name="bol_fecha" class="form-control datetimepicker-input"
-                data-target="#datetimepickerFE" id='inputFecha' required />
+                data-target="#datetimepickerFE" id="inputFecha" required />
               <div onclick="openDate()" class="input-group-append" data-target="#datetimepickerFE"
                 data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -104,9 +120,11 @@
               <div class="invalid-feedback">Ingresar la fecha</div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
+
 
     <!--Tabla de Items-->
     <div class="card shadow mb-4 mr-3">
@@ -137,9 +155,9 @@
         </div>
 
         <!--Importe Total-->
-        <div class="row mt-2 mr-2 justify-content-end mb-3">
-          <label for="inputTotal" class="col-2 col-form-label">Total:</label>
-          <input type="text" class="col-2 form-control" name="bol_mtotal" id="inputTotal" readonly=true>
+        <div class="form-row mt-2 mx-2 justify-content-end mb-3">
+          <label for="inputTotal" class="col-md-12 col-lg-2 col-form-label">Total:</label>
+          <input type="text" class="col-md-12 col-lg-2 form-control" name="bol_mtotal" id="inputTotal" readonly=true>
         </div>
 
         <!--Botón Registrar(Envía todo a la base de Datos)-->
@@ -165,44 +183,52 @@
   <form class="needs-validation" method="POST" action="/dashboard/boleta" novalidate>
 
     <input type="text" name="tipo_cmp" value="2" style="visibility: hidden;">
+
     <div class="form-group form-row">
       <!--Numero de documento-->
-      <div class="col-6 row">
-        <label for="inputDocumento" class="col-4 col-form-label">Documento:</label>
-        <div class="col-6">
-          <input type="text" name="documentox" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento"
-            minlength="8" maxlength="11" required>
-          <div class="valid-feedback">¡Correcto!</div>
-          <div class="invalid-feedback">Ingresar documento</div>
-        </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="form-row">
+          <label for="inputDocumento" class="col-xs-12 col-md-12 col-lg-4 col-form-label">Documento:</label>
+          <div class="col-sm-11 col-md-10 col-lg-6">
+            <input type="text" name="documento" class="form-control" value="{{newBoleta.dni}}" id="inputDocumento"
+              minlength="8" maxlength="11" required>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Ingresar documento</div>
+          </div>
 
-        <!--Botón verificar-->
-        <div class="col-2">
-          <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+          <!--Botón verificar-->
+          <div class="col-sm-1 col-md-2 col-lg-2">
+            <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+          </div>
         </div>
       </div>
+
 
       <!--Combo Box Tipo de Moneda-->
-      <div class="col-6 row">
-        <label for="inputMoneda" class="col-6 col-form-label">Tipo de Moneda:</label>
-        <div class="col-6">
-          <select class="form-control mb-2" name="bol_tipo_moneda" id="inputMoneda" required>
-            <option disabled></option>
-            <option value="Soles">SOLES</option>
-            <option value="Dolares">Dolares</option>
-            <option value="Euros">Euros</option>
-          </select>
-          <div class="valid-feedback">¡Correcto!</div>
-          <div class="invalid-feedback">Ingresar el tipo de moneda.</div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="form-row">
+          <label for="inputMoneda" class="col-lg-4 col-form-label">Tipo de Moneda:</label>
+          <div class="col-lg-8">
+            <select class="form-control mb-2" name="bol_tipo_moneda" id="inputMoneda" required>
+              <option value=""></option>
+              <option value="Soles">Soles</option>
+              <option value="Dolares">Dolares</option>
+              <option value="Euros">Euros</option>
+            </select>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Ingresar el tipo de moneda.</div>
+          </div>
         </div>
       </div>
+
     </div>
 
     <!--Emisor-->
     <div class="form-group form-row">
-      <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
+      <label for="inputCliente" class="col-md-12 col-lg-2 col-form-label">Señor(es):</label>
       <!--Nombres-->
-      <div class="col mr-3">
+      <div class="col-md-6 col-lg-5">
         <input type="text" name="nombre" class="form-control" id="inputNombre" value="{{newBoleta.nombres}}"
           placeholder="Nombres" required>
         <div class="valid-feedback">¡Correcto!</div>
@@ -210,7 +236,7 @@
       </div>
 
       <!--Apellidos-->
-      <div class="col mr-3">
+      <div class="col-md-6 col-lg-5">
         <input type="text" name="apellido" class="form-control" id="inputApellido" value="{{newBoleta.apellidos}}"
           placeholder="Apellidos" required>
         <div class="valid-feedback">¡Correcto!</div>
@@ -220,34 +246,42 @@
 
     <!--Dirección-->
     <div class="form-group form-row">
-      <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
-      <div class="col mr-3">
-        <input type="text" name="direccion" class="form-control" value="{{newBoleta.direccion}}" id="inputDireccion"
-          required>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Ingresar la dirección</div>
+      <div class="col">
+        <div class="form-row">
+          <label for="inputDireccion" class="col-md-12 col-lg-2 col-form-label">Dirección:</label>
+          <div class="col-md-12 col-lg-10">
+            <input type="text" name="direccion" class="form-control" value="{{newBoleta.direccion}}" id="inputDireccion"
+              required>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Ingresar la dirección</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="form-group form-row">
-      <!--Modo de pago-->
-      <label for="inputPago" class="col-2 col-form-label">Modo de Pago:</label>
-      <div class="col mr-3">
-        <select class="form-control" id="inputPago" name="modopago" required>
-          <option value=""></option>
-          {{#each modo_pago}}
-          <option value="{{mod_nombre}}">{{mod_nombre}}</option>
-          {{/each}}
-        </select>
-        <div class="valid-feedback">¡Correcto!</div>
-        <div class="invalid-feedback">Seleccionar una opción</div>
+      <div class="col-md-12 col-lg-6 my-1">
+        <div class="form-row">
+          <!--Modo de pago-->
+          <label for="inputPago" class="col-sm-12 col-md-4 col-form-label">Modo de Pago:</label>
+          <div class="col-sm-12 col-md-8">
+            <select class="form-control" id="inputPago" name="modopago" required>
+              <option value=""></option>
+              {{#each modo_pago}}
+              <option value="{{mod_nombre}}">{{mod_nombre}}</option>
+              {{/each}}
+            </select>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Seleccionar una opción</div>
+          </div>
+        </div>
       </div>
 
-      <!--Fecha-->
-      <div class="col-6">
+      <div class="col-md-12 col-lg-6 my-1">
         <div class="form-row">
-          <label for="inputFecha" class="col-4 ml-5 col-form-label">Fecha:</label>
-          <div class="col mr-3">
+          <!--Fecha-->
+          <label for="inputFecha" class="col-sm-12 col-md-4 col-form-label">Fecha:</label>
+          <div class="col-sm-12 col-md-8">
             <div class="input-group date" id="datetimepickerFE" data-target-input="nearest">
               <input type="text" name="bol_fecha" class="form-control datetimepicker-input"
                 data-target="#datetimepickerFE" id="inputFecha" required />
@@ -259,12 +293,13 @@
               <div class="invalid-feedback">Ingresar la fecha</div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
 
     <!--Tabla de Items-->
-    <div class="card shadow mb-4 mr-3">
+    <div class="card shadow mb-4">
       <div class="card-body">
         <div class="row">
           <div class="col-12 mb-3">
@@ -291,9 +326,9 @@
         </div>
 
         <!--Importe Total-->
-        <div class="row mt-2 mr-2 justify-content-end mb-3">
-          <label for="inputTotal" class="col-2 col-form-label">Total:</label>
-          <input type="text" class="col-2 form-control" name="bol_mtotal" id="inputTotal" readonly=true>
+        <div class="form-row mt-2 mx-2 justify-content-end mb-3">
+          <label for="inputTotal" class="col-md-12 col-lg-2 col-form-label">Total:</label>
+          <input type="text" class="col-md-12 col-lg-2 form-control" name="bol_mtotal" id="inputTotal" readonly=true>
         </div>
 
         <!--Botón Registrar(Envía todo a la base de Datos)-->
@@ -303,12 +338,12 @@
             <button class="btn btn-primary mt-3 mb-3" type="submit"><i class="fa fa-check-circle"></i>
               Registrar Boleta
             </button>
-          </div>}
+          </div>
 
           <div class="row justify-content-center">
             <button class="btn btn-primary mt-3 mb-3" type="button" onclick="genPDF()"><i
                 class="fa fa-check-circle"></i>
-                Generar Boleta
+              Generar Boleta
             </button>
           </div>
 
@@ -335,46 +370,47 @@
 
       <div class="modal-body">
         <form action="#" class="needs-validation" method="POST" novalidate>
-          <div class="form-group form-row">
-            <label for="inputCantidad" class="col-4 col-form-label">Cantidad:</label>
-            <input type="number" name="detb_cantidad" class="col-8 form-control mb-2" id="inputCantidad"
-              onchange="refresh(this.value)" required>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar cantidad</div>
-          </div>
-
-          <div class="form-group form-row">
-            <label for="inputUnidad" class="col-4 col-form-label">Unidad de Medida:</label>
-            <select class="col-8 form-control mb-2" name="pro_umed" id="inputUnidad" required>
-              <option value=""></option>
-              {{#each unidad_medida}}
-              <option value="{{umed_id}},{{umed_nombre}}">{{umed_nombre}}</option>
-              {{/each}}
-            </select>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Seleccionar Medida</div>
-          </div>
-
+          <!-- Productos -->
           <div class="form-group form-row">
             <label for="inputDescripcion" class="col-4 col-form-label">Descripcion:</label>
             <select class="col-8 form-control mb-2" name="pro_nombre" id="inputDescripcion"
               onchange="seleccion(this.value)" required>
               <option value=""></option>
               {{#each productos}}
-              <option value="{{pro_id}},{{pro_precio}},{{pro_nombre}}"> {{pro_nombre}} </option>
+              <option value="{{pro_id}}~{{pro_precio}}~{{pro_nombre}}~{{umed_nombre}}~{{pro_stock}}~{{umed_id}}">
+                {{pro_nombre}} </option>
               {{/each}}
             </select>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Seleccionar medida</div>
           </div>
-
+          <!-- Unidad de Medida -->
+          <div class="form-group form-row">
+            <label for="inputUnidad" class="col-4 col-form-label">Unidad de Medida:</label>
+            <input type="text" class="col-8 form-control mb-2" name="pro_umed" id="inputUnidad" readonly="True">
+            <input type="text" class="col-8 form-control mb-2" id="inputUnidadID" hidden>
+          </div>
+          <!-- Stock -->
+          <div class="form-group form-row">
+            <label for="inputStock" class="col-4 col-form-label">Stock:</label>
+            <input type="text" class="col-8 form-control mb-2" name="pro_stock" id="inputStock" readonly="True">
+          </div>
+          <!-- Precio Unitario -->
           <div class="form-group form-row">
             <label for="inputValor" class="col-4 col-form-label">Valor Unitario:</label>
             <input type="text" class="col-8 form-control mb-2" name="pro_precio" id="inputValor" disabled required>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar valor unitario</div>
           </div>
-
+          <!-- Cantidad -->
+          <div class="form-group form-row">
+            <label for="inputCantidad" class="col-4 col-form-label">Cantidad:</label>
+            <input type="number" name="detb_cantidad" class="col-8 form-control mb-2" id="inputCantidad"
+              onchange="refresh(this.value)" min="0" required>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Ingresar cantidad</div>
+          </div>
+          <!-- Monto -->
           <div class="form-group form-row">
             <label for="inputMonto" class="col-4 col-form-label">Monto Total:</label>
             <input type="text" class="col-8 form-control" name="detb_precio" id="inputMonto" disabled>
@@ -385,7 +421,7 @@
       <!-- End of modal body -->
 
       <div class="modal-footer">
-        <button class="btn btn-success" type="submit" data-dismiss="modal" onclick="prueba()">Aceptar</button>
+        <button class="btn btn-success" type="submit" data-dismiss="modal" onclick="agregarProducto()">Aceptar</button>
         <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
       </div>
 
@@ -419,13 +455,13 @@
 
 
     for (let i = 0; i < aCantidad.length; i++) {
-      let arr = {"Cantidad":"","U. Medida":"" , "Descripcion":"","P. Unitario":"","Importe":""};
+      let arr = { "Cantidad": "", "U. Medida": "", "Descripcion": "", "P. Unitario": "", "Importe": "" };
       arr["Cantidad"] = aCantidad[i].value;
       arr["U. Medida"] = aUnidad[i].innerHTML;
       arr["Descripcion"] = aDescripcion[i].innerHTML;
       arr["P. Unitario"] = aValor[i].value;
       arr["Importe"] = aMonto[i].value;
-      
+
       resultados.push(arr);
     }
     console.log(resultados);
@@ -451,21 +487,21 @@
     doc.text('Fecha:', 110, 60);
     doc.text(fecha, 170, 60);
 
-    doc.line(10,65,210,65,'F');
-    
+    doc.line(10, 65, 210, 65, 'F');
+
     var columnas = createHeaders(['Cantidad', 'U. Medida', 'Descripcion', 'P. Unitario', 'Importe']);
 
-  function createHeaders(keys) {
-    return keys.map(key => ({
-      'name': key,
-      'prompt': key,
-      'width':50,
-      'align':'center',
-      'padding':0
-    }));
-  }
-    doc.table(10,80,resultados,columnas);
-  
+    function createHeaders(keys) {
+      return keys.map(key => ({
+        'name': key,
+        'prompt': key,
+        'width': 50,
+        'align': 'center',
+        'padding': 0
+      }));
+    }
+    doc.table(10, 80, resultados, columnas);
+
     doc.text('Total:', 125, 170);
     doc.text(total, 165, 170);
 

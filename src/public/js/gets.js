@@ -1,21 +1,47 @@
 var contador = 1;
 
 function refresh(cantidad) {
+
+  if(document.getElementById('inputCantidad').value > document.getElementById('inputStock').value ){
+    document.getElementById('inputCantidad').value = document.getElementById('inputStock').value ;
+    cantidad = document.getElementById('inputStock').value;
+  }
+  else if (document.getElementById('inputCantidad').value < 0){
+    document.getElementById('inputCantidad').value = 0;
+    cantidad = 0;
+  }
+
   const precio = document.getElementById('inputValor').value;
   document.getElementById('inputMonto').value = (cantidad * precio).toFixed(2);
+
 }
 
-function seleccion(precio) {
-  let precio1 = precio.split(',')[1];
-  console.log(precio1);
+function seleccion(datos) {
 
-  // document.getElementById
+  // Se obtiene el precio, la unidad de medida, stock, unidad_medida_id
+  let precio = datos.split('~')[1];
+  let unidad_medida = datos.split('~')[3];
+  let stock = datos.split('~')[4];
+  let unidad_medida_id = datos.split('~')[5];
+  
+  // Se obtiene la cantidad del input
   const cantidad = document.getElementById('inputCantidad').value;
 
-  $('#inputValor').val(precio1);
-  $("#inputMonto").val(cantidad * precio1);
+  
+
+  // Se establece el valor al input precio
+  $('#inputValor').val(precio);
+  // Se establece el valor al input monto
+  $("#inputMonto").val((cantidad * precio).toFixed(2));
+  document.getElementById('inputCantidad').setAttribute('max',stock);
+  // Se establece el valor al input unidad medida
+  $('#inputUnidad').val(unidad_medida);
+  // Se establece el valor al input stock
+  $('#inputStock').val(stock);
+  // Se establece el valor al input unidad_medida_id
+  $('#inputUnidadID').val(unidad_medida_id);
+  
 };
-//var temp = 1;
 
 function openDate() {
   $('#datetimepickerFE').datetimepicker({
@@ -23,31 +49,36 @@ function openDate() {
     format: 'YYYY-MM-DD'
   });
 }
+
 //Boleta and factura issues
-function prueba() {
-  console.log("primer " + contador);
+
+function agregarProducto() {
+  // Se obtiene la cantidad, la unidad, el id de la unidad, la descripcion, el id del producto, el valor, el monto
   let cantidad = document.getElementById('inputCantidad').value;
-  let unidad = document.getElementById('inputUnidad').value.split(',')[1];
-  let descripcion = document.getElementById('inputDescripcion').value.split(',')[2];
-  let id_pro = document.getElementById('inputDescripcion').value.split(',')[0];
+  let unidad = document.getElementById('inputDescripcion').value.split('~')[3];
+  let unidad_id = document.getElementById('inputUnidadID').value;
+  let descripcion = document.getElementById('inputDescripcion').value.split('~')[2];
+  let id_pro = document.getElementById('inputDescripcion').value.split('~')[0];
   let valor = document.getElementById('inputValor').value;
   let monto = document.getElementById('inputMonto').value;
 
+  // Celda Cantidad
   let cell1 = document.createElement('td');
-  cell1.setAttribute('id', '')
+  cell1.setAttribute('id','')
   let input1 = document.createElement('input');
-  //  let btn1 = document.createElement('button');
   input1.name = 'cantidad';
   input1.value = cantidad;
   input1.type = 'hidden';
 
+  // Celda Unidad
   let cell2 = document.createElement('td');
   cell2.className = 'vUnidad';
   let input2 = document.createElement('input');
   input2.name = 'unidad';
-  input2.value = document.getElementById('inputUnidad').value.split(',')[0];
+  input2.value = unidad_id;
   input2.type = 'hidden';
 
+  // Celda Descripcion
   let cell3 = document.createElement('td');
   cell3.className = 'vDescripcion';
   let input3 = document.createElement('input');
@@ -55,12 +86,14 @@ function prueba() {
   input3.value = id_pro;
   input3.type = 'hidden';
 
+  // Celda Precio Unitario
   let cell4 = document.createElement('td');
   let input4 = document.createElement('input');
   input4.name = 'valor';
   input4.value = valor;
   input4.type = 'hidden';
 
+  // Celda Monto Total
   let cell5 = document.createElement('td');
   let input5 = document.createElement('input');
   input5.name = 'monto';
@@ -68,7 +101,7 @@ function prueba() {
   input5.type = 'hidden';
   cell5.className = "monto_total";
 
-
+  // Celda Boton Añadir
   let cell6 = document.createElement('td');
   let btn_edit = document.createElement('button');
   let i_edit = document.createElement('i');
@@ -77,11 +110,10 @@ function prueba() {
   btn_edit.setAttribute('type', 'button');
   btn_edit.setAttribute('data-toggle', 'modal');
   btn_edit.setAttribute('data-target', '#addModal');
-
   btn_edit.appendChild(i_edit);
   cell6.appendChild(btn_edit);
 
-
+  // Celda Boton Eliminar
   let cell7 = document.createElement('td');
   let btn_delete = document.createElement('button');
   let i_delete = document.createElement('i');
@@ -91,34 +123,35 @@ function prueba() {
   btn_delete.setAttribute('data-toggle', 'modal');
   btn_delete.setAttribute('data-target', '#deleteModal');
   btn_delete.setAttribute('onclick', 'borrar(this.parentNode.parentNode.parentNode, this.parentNode.parentNode)');
+  
   btn_delete.appendChild(i_delete);
   cell7.appendChild(btn_delete);
-  //<button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i></button>
-  //<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-minus-circle"></i></button>
+
   cell1.innerHTML = cantidad;
   cell2.innerHTML = unidad;
   cell3.innerHTML = descripcion;
   cell4.innerHTML = valor;
   cell5.innerHTML = monto;
+  // Se crea la fila a añadir
   let fila = document.createElement('tr');
   fila.setAttribute('id', contador);
   contador++;
   fila.append(cell1, input1, cell2, input2, cell3, input3, cell4, input4, cell5, input5, cell6, cell7);
-
+  // Se agrega la fila a la tabla
   let tabla = document.getElementById('tabla');
   tabla.appendChild(fila);
   total();
   clean();
-
 };
 
 function clean() {
-
+  // Se limpian los input del form Agregar Producto
   document.getElementById('inputCantidad').value = "";
   document.getElementById('inputUnidad').value = "";
   document.getElementById('inputDescripcion').value = "";
   document.getElementById('inputValor').value = "";
   document.getElementById('inputMonto').value = "";
+  document.getElementById('inputStock').value = "";
 }
 
 function total() {
@@ -337,7 +370,6 @@ function intercambiarFormCliente(opcion) {
   let formJuridica = document.getElementById('form_juridica');
 
   if (opcion === 'natural') {
-
 
     formNatural.className = 'd-block';
     formJuridica.className = 'd-none';

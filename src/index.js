@@ -38,7 +38,13 @@ app.set('view engine','.hbs');
 
 // Middlewares
 // Sesion de usuario
-
+app.use(session({
+    secret: 'CarlosRodriguez98',
+    resave : false,
+    saveUninitialized : false,
+    store: new mysqlStore(database)
+}));
+app.use(flash());
 // Muestra un mensaje en consola debido a las peticiones HTTP
 app.use(morgan('dev'));
 // Aceptar los datos de los formularios
@@ -47,7 +53,16 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
 // Global variables
-
+app.use((req,res,next) =>{
+    app.locals.ProductAdded = req.flash('ProductAdded');
+    app.locals.ProductDeleted = req.flash('ProductDeleted');
+    app.locals.NaturalPersonAdded = req.flash('NaturalPersonAdded');
+    app.locals.LegalPersonAdded = req.flash('LegalPersonAdded');
+    app.locals.CustomerDelete = req.flash('CustomerDelete');
+    app.locals.NaturalPersonExist = req.flash('NaturalPersonExist');
+    app.locals.LegalPersonExist = req.flash('LegalPersonExist');
+    next();
+});
 
 // Routes
 // Ruta inicial

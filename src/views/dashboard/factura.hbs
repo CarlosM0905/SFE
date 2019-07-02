@@ -12,30 +12,38 @@
       <input type="text" name="tipo_cmp" value="1" style="visibility: hidden;">
 
       <div class="form-group form-row">
-        <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
-        <div class="col mr-3">
-          <input type="text" name="documento" value="{{newFactura.ruc}}" class="form-control" id="inputDocumento"
-            minlength="8" maxlength="11" required>
-          <div class="valid-feedback">¡Correcto!</div>
-          <div class="invalid-feedback">Ingresar documento</div>
+        <div class="col-sm-12 col-md-6">
+          <div class="form-row">
+            <label for="inputDocumento" class="col-xs-12 col-md-12 col-lg-4 col-form-label">RUC:</label>
+            <div class="col-sm-11 col-md-10 col-lg-6">
+              <input type="text" name="documento" value="{{newFactura.ruc}}" class="form-control" id="inputDocumento"
+                minlength="8" maxlength="11" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar documento</div>
+            </div>
+
+            <!--Boton Verificacion -->
+            <div class="col-sm-1 col-md-2 col-lg-2">
+              <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
         </div>
 
-        <!--Boton de Verificacion -->
-        <div class="col-2">
-          <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
-        </div>
-
-        <!--Modo de pago-->
-        <label for="inputPago" class="col-2 col-form-label">Modo de Pago:</label>
-        <div class="col mr-3">
-          <select class="form-control" id="inputPago" name="modopago" required>
-            <option value=""></option>
-            {{#each modo_pago}}
-            <option value="{{mod_nombre}}">{{mod_nombre}}</option>
-            {{/each}}
-          </select>
-          <div class="valid-feedback">¡Correcto!</div>
-          <div class="invalid-feedback">Seleccionar una opción</div>
+        <div class="col-sm-12 col-md-6">
+          <div class="form-row">
+            <!--Modo de pago-->
+            <label for="inputPago" class="col-lg-4 col-form-label">Modo de Pago:</label>
+            <div class="col-lg-8">
+              <select class="form-control" id="inputPago" name="modopago" required>
+                <option value=""></option>
+                {{#each modo_pago}}
+                <option value="{{mod_nombre}}">{{mod_nombre}}</option>
+                {{/each}}
+              </select>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Seleccionar una opción</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -43,8 +51,8 @@
         <div class="col">
           <div class="form-row">
             <!--Emisor-->
-            <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
-            <div class="col-10">
+            <label for="inputCliente" class="col-md-12 col-lg-2 col-form-label">Razon Social:</label>
+            <div class="col-md-12 col-lg-10">
               <input type="text" class="form-control" id="inputCliente" value="{{newFactura.razon_social}}" required>
               <div class="valid-feedback">
                 ¡Correcto!
@@ -61,8 +69,8 @@
         <div class="col">
           <div class="form-row">
             <!--Dirección-->
-            <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
-            <div class="col-10">
+            <label for="inputDireccion" class="col-md-12 col-lg-2 col-form-label">Dirección:</label>
+            <div class="col-md-12 col-lg-10">
               <input type="text" class="col form-control" id="inputDireccion" value="{{newFactura.direccion}}" required>
               <div class="valid-feedback">
                 ¡Correcto!
@@ -76,12 +84,12 @@
       </div>
 
       <div class="form-group form-row">
-        <div class="col-xs-12 col-md-6 my-1">
+        <div class="col-md-12 col-lg-6 my-1">
           <div class="form-row">
-            <label for="inputMoneda" class="col-4 col-form-label">Tipo de Moneda:</label>
-            <div class="col-8">
-              <select class="col-8 form-control mb-2" name="tipo_moneda" id="inputMoneda" required>
-                <option disabled></option>
+            <label for="inputMoneda" class="col-sm-12 col-md-4 col-form-label">Tipo de Moneda:</label>
+            <div class="col-sm-12 col-md-8">
+              <select class="form-control mb-2" name="tipo_moneda" id="inputMoneda" required>
+                <option value=""></option>
                 <option value="SOLES">SOLES</option>
                 <option value="DOLARES">DOLARES</option>
                 <option value="EUROS">EUROS</option>
@@ -96,11 +104,12 @@
           </div>
         </div>
 
-        <div class="col-xs-12 col-md-6 my-1">
+
+        <div class="col-md-12 col-lg-6 my-1">
           <div class="form-row">
             <!--Fecha Emision--->
-            <label for="inputEmision" class="col-4 col-form-label">Fecha de Emisión:</label>
-            <div class="col-8">
+            <label for="inputEmision" class="col-sm-12 col-md-4 col-form-label">Fecha de Emisión:</label>
+            <div class="col-sm-12 col-md-8">
               <div class="input-group date" id="datetimepickerFE" data-target-input="nearest">
                 <input type="text" name="fecha" class="form-control datetimepicker-input"
                   data-target="#datetimepickerFE" id="inputFecha" required />
@@ -119,7 +128,6 @@
           </div>
         </div>
       </div>
-
       <!--Tabla de Items-->
       <div class="card shadow mb-4">
         <div class="card-body">
@@ -147,28 +155,25 @@
             </table>
           </div>
 
-          <div class="row mt-2 mr-2 justify-content-end">
+          <div class="row mt-2 mx-2 justify-content-end">
             <!--Subtotal-->
-            <label for="inputSubtotal" class="col-2 col-form-label">Subtotal:</label>
-            <input type="text" name="subtotal" class="col-2 form-control" id="inputSubtotal" readonly="true">
+            <label for="inputSubtotal" class="col-md-12 col-lg-2 col-form-label">Subtotal:</label>
+            <input type="text" name="subtotal" class="col-md-12 col-lg-2 pl-2 form-control" id="inputSubtotal" readonly="true">
           </div>
-
-          <div class="row mt-1 mr-2 justify-content-end">
+          <div class="row mt-2 mx-2 justify-content-end">
             <!--IGV-->
-            <label for="inputIGV" class="col-2 col-form-label">IGV(18%):</label>
-            <input type="text" name="IGV" class="col-2 form-control" id="inputIGV" readonly="true">
+            <label for="inputIGV" class="col-md-12 col-lg-2 col-form-label">IGV(18%):</label>
+            <input type="text" name="IGV" class="col-md-12 col-lg-2 form-control" id="inputIGV" readonly="true">
           </div>
-
-          <div class="form-row mt-1 mr-2 justify-content-end">
+          <div class="form-row mt-2 mx-2 justify-content-end">
             <!--Importe Total-->
-            <label for="inputTotal" class="col-2 col-form-label">Importe Total:</label>
-            <input type="text" name="mtotal" class="col-2 form-control" id="inputTotal" readonly="true">
+            <label for="inputTotal" class="col-md-12 col-lg-2 col-form-label">Importe Total:</label>
+            <input type="text" name="mtotal" class="col-md-12 col-lg-2 form-control" id="inputTotal" readonly="true">
           </div>
-
-          <div class="form-row mx-2 mt-2 mb-3 justify-content-start">
-            <!--Subtotal letras-->
-            <label for="inputMonto" class="col-1 col-form-label">Son: </label>
-            <input type="text" class="col-8 form-control" id="inputTotalLetras" disabled>
+          <div class="form-row mx-2 mt-2 justify-content-start">
+            <!--Subtotal-->
+            <label for="inputMonto" class="col-md-12 col-lg-2 col-form-label">Son: </label>
+            <input type="text" class="col-md-12 col-lg-10 form-control" id="inputTotalLetras" disabled>
           </div>
         </div>
         <div class="card-footer">
@@ -192,37 +197,47 @@
       <input type="text" name="tipo_cmp" value="1" style="visibility: hidden;">
 
       <div class="form-group form-row">
-        <label for="inputDocumento" class="col-2 col-form-label">Documento:</label>
-        <div class="col mr-3">
-          <input type="text" name="documento" value="{{newFactura.ruc}}" class="form-control" id="inputDocumento"
-            minlength="8" maxlength="11" required>
-          <div class="valid-feedback">¡Correcto!</div>
-          <div class="invalid-feedback">Ingresar documento</div>
+        <div class="col-sm-12 col-md-6">
+          <div class="form-row">
+            <label for="inputDocumento" class="col-xs-12 col-md-12 col-lg-4 col-form-label">RUC:</label>
+            <div class="col-sm-11 col-md-10 col-lg-6">
+              <input type="text" name="documento" value="{{newFactura.ruc}}" class="form-control" id="inputDocumento"
+                minlength="8" maxlength="11" required>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Ingresar documento</div>
+            </div>
+
+            <!--Boton Verificacion -->
+            <div class="col-sm-1 col-md-2 col-lg-2">
+              <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
         </div>
 
-        <!--Boton Verificacion -->
-        <div class="col">
-          <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-search"></i></button>
-        </div>
-        <!--Modo de pago-->
-        <label for="inputPago" class="col-2 col-form-label">Modo de Pago:</label>
-        <div class="col mr-3">
-          <select class="form-control" id="inputPago" name="modopago" required>
-            <option value=""></option>
-            {{#each modo_pago}}
-            <option value="{{mod_nombre}}">{{mod_nombre}}</option>
-            {{/each}}
-          </select>
-          <div class="valid-feedback">¡Correcto!</div>
-          <div class="invalid-feedback">Seleccionar una opción</div>
+        <div class="col-sm-12 col-md-6">
+          <div class="form-row">
+            <!--Modo de pago-->
+            <label for="inputPago" class="col-lg-4 col-form-label">Modo de Pago:</label>
+            <div class="col-lg-8">
+              <select class="form-control" id="inputPago" name="modopago" required>
+                <option value=""></option>
+                {{#each modo_pago}}
+                <option value="{{mod_nombre}}">{{mod_nombre}}</option>
+                {{/each}}
+              </select>
+              <div class="valid-feedback">¡Correcto!</div>
+              <div class="invalid-feedback">Seleccionar una opción</div>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="form-group form-row">
         <div class="col">
           <div class="form-row">
             <!--Emisor-->
-            <label for="inputCliente" class="col-2 col-form-label">Señor(es):</label>
-            <div class="col-10">
+            <label for="inputCliente" class="col-md-12 col-lg-2 col-form-label">Razon Social:</label>
+            <div class="col-md-12 col-lg-10">
               <input type="text" class="form-control" id="inputCliente" value="{{newFactura.razon_social}}" required>
               <div class="valid-feedback">
                 ¡Correcto!
@@ -234,12 +249,13 @@
           </div>
         </div>
       </div>
+
       <div class="form-group form-row">
         <div class="col">
           <div class="form-row">
             <!--Dirección-->
-            <label for="inputDireccion" class="col-2 col-form-label">Dirección:</label>
-            <div class="col-10">
+            <label for="inputDireccion" class="col-md-12 col-lg-2 col-form-label">Dirección:</label>
+            <div class="col-md-12 col-lg-10">
               <input type="text" class="col form-control" id="inputDireccion" value="{{newFactura.direccion}}" required>
               <div class="valid-feedback">
                 ¡Correcto!
@@ -251,13 +267,14 @@
           </div>
         </div>
       </div>
+
       <div class="form-group form-row">
-        <div class="col-xs-12 col-md-6 my-1">
+        <div class="col-md-12 col-lg-6 my-1">
           <div class="form-row">
-            <label for="inputMoneda" class="col-4 col-form-label">Tipo de Moneda:</label>
-            <div class="col-8">
-              <select class="col-8 form-control mb-2" name="tipo_moneda" id="inputMoneda" required>
-                <option disabled></option>
+            <label for="inputMoneda" class="col-sm-12 col-md-4 col-form-label">Tipo de Moneda:</label>
+            <div class="col-sm-12 col-md-8">
+              <select class="form-control mb-2" name="tipo_moneda" id="inputMoneda" required>
+                <option value=""></option>
                 <option value="SOLES">SOLES</option>
                 <option value="DOLARES">DOLARES</option>
                 <option value="EUROS">EUROS</option>
@@ -271,11 +288,13 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-md-6 my-1">
+
+
+        <div class="col-md-12 col-lg-6 my-1">
           <div class="form-row">
             <!--Fecha Emision--->
-            <label for="inputEmision" class="col-4 col-form-label">Fecha de Emisión:</label>
-            <div class="col-8">
+            <label for="inputEmision" class="col-sm-12 col-md-4 col-form-label">Fecha de Emisión:</label>
+            <div class="col-sm-12 col-md-8">
               <div class="input-group date" id="datetimepickerFE" data-target-input="nearest">
                 <input type="text" name="fecha" class="form-control datetimepicker-input"
                   data-target="#datetimepickerFE" id="inputFecha" required />
@@ -294,6 +313,7 @@
           </div>
         </div>
       </div>
+      
       <!--Tabla de Items-->
       <div class="card shadow mb-4">
         <div class="card-body">
@@ -320,25 +340,25 @@
               </tbody>
             </table>
           </div>
-          <div class="row mt-2 mr-2 justify-content-end">
+          <div class="row mt-2 mx-2 justify-content-end">
             <!--Subtotal-->
-            <label for="inputSubtotal" class="col-2 col-form-label">Subtotal:</label>
-            <input type="text" name="subtotal" class="col-2 form-control" id="inputSubtotal" readonly="true">
+            <label for="inputSubtotal" class="col-md-12 col-lg-2 col-form-label">Subtotal:</label>
+            <input type="text" name="subtotal" class="col-md-12 col-lg-2 pl-2 form-control" id="inputSubtotal" readonly="true">
           </div>
-          <div class="row mt-1 mr-2 justify-content-end">
+          <div class="row mt-2 mx-2 justify-content-end">
             <!--IGV-->
-            <label for="inputIGV" class="col-2 col-form-label">IGV(18%):</label>
-            <input type="text" name="IGV" class="col-2 form-control" id="inputIGV" readonly="true">
+            <label for="inputIGV" class="col-md-12 col-lg-2 col-form-label">IGV(18%):</label>
+            <input type="text" name="IGV" class="col-md-12 col-lg-2 form-control" id="inputIGV" readonly="true">
           </div>
-          <div class="form-row mt-1 mr-2 justify-content-end">
+          <div class="form-row mt-2 mx-2 justify-content-end">
             <!--Importe Total-->
-            <label for="inputTotal" class="col-2 col-form-label">Importe Total:</label>
-            <input type="text" name="mtotal" class="col-2 form-control" id="inputTotal" readonly="true">
+            <label for="inputTotal" class="col-md-12 col-lg-2 col-form-label">Importe Total:</label>
+            <input type="text" name="mtotal" class="col-md-12 col-lg-2 form-control" id="inputTotal" readonly="true">
           </div>
-          <div class="form-row mx-2 mt-2 mb-3 justify-content-start">
+          <div class="form-row mx-2 mt-2 justify-content-start">
             <!--Subtotal-->
-            <label for="inputMonto" class="col-1 col-form-label">Son: </label>
-            <input type="text" class="col-8 form-control" id="inputTotalLetras" disabled>
+            <label for="inputMonto" class="col-md-12 col-lg-2 col-form-label">Son: </label>
+            <input type="text" class="col-md-12 col-lg-10 form-control" id="inputTotalLetras" disabled>
           </div>
         </div>
         <div class="card-footer">
@@ -373,50 +393,57 @@
       </div>
       <div class="modal-body">
         <form action="#" class="needs-validation" method="POST" novalidate>
-          <div class="form-group form-row">
-            <label for="inputCantidad" class="col-4 col-form-label">Cantidad:</label>
-            <input type="number" name="detb_cantidad" class="col-8 form-control mb-2" id="inputCantidad"
-              onchange="refresh(this.value)" required>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Ingresar cantidad</div>
-          </div>
-          <div class="form-group form-row">
-            <label for="inputUnidad" class="col-4 col-form-label">Unidad de Medida:</label>
-            <select class="col-8 form-control mb-2" name="pro_umed" id="inputUnidad" required>
-              <option value=""></option>
-              {{#each unidad_medida}}
-              <option value="{{umed_id}},{{umed_nombre}}">{{umed_nombre}}</option>
-              {{/each}}
-            </select>
-            <div class="valid-feedback">¡Correcto!</div>
-            <div class="invalid-feedback">Seleccionar Medida</div>
-          </div>
+
+          <!-- Productos -->
           <div class="form-group form-row">
             <label for="inputDescripcion" class="col-4 col-form-label">Descripcion:</label>
             <select class="col-8 form-control mb-2" name="pro_nombre" id="inputDescripcion"
               onchange="seleccion(this.value)" required>
               <option value=""></option>
               {{#each productos}}
-              <option value="{{pro_id}},{{pro_precio}},{{pro_nombre}}"> {{pro_nombre}} </option>
+              <option value="{{pro_id}}~{{pro_precio}}~{{pro_nombre}}~{{umed_nombre}}~{{pro_stock}}~{{umed_id}}">
+                {{pro_nombre}} </option>
               {{/each}}
             </select>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Seleccionar medida</div>
           </div>
+          <!-- Unidad de Medida -->
+          <div class="form-group form-row">
+            <label for="inputUnidad" class="col-4 col-form-label">Unidad de Medida:</label>
+            <input type="text" class="col-8 form-control mb-2" name="pro_umed" id="inputUnidad" readonly="True">
+            <input type="text" class="col-8 form-control mb-2" id="inputUnidadID" hidden>
+          </div>
+          <!-- Stock -->
+          <div class="form-group form-row">
+            <label for="inputStock" class="col-4 col-form-label">Stock:</label>
+            <input type="text" class="col-8 form-control mb-2" name="pro_stock" id="inputStock" readonly="True">
+          </div>
+          <!-- Precio Unitario -->
           <div class="form-group form-row">
             <label for="inputValor" class="col-4 col-form-label">Valor Unitario:</label>
             <input type="text" class="col-8 form-control mb-2" name="pro_precio" id="inputValor" disabled required>
             <div class="valid-feedback">¡Correcto!</div>
             <div class="invalid-feedback">Ingresar valor unitario</div>
           </div>
+          <!-- Cantidad -->
+          <div class="form-group form-row">
+            <label for="inputCantidad" class="col-4 col-form-label">Cantidad:</label>
+            <input type="number" name="detb_cantidad" class="col-8 form-control mb-2" id="inputCantidad"
+              onchange="refresh(this.value)" min="0" required>
+            <div class="valid-feedback">¡Correcto!</div>
+            <div class="invalid-feedback">Ingresar cantidad</div>
+          </div>
+          <!-- Monto -->
           <div class="form-group form-row">
             <label for="inputMonto" class="col-4 col-form-label">Monto Total:</label>
             <input type="text" class="col-8 form-control" name="detb_precio" id="inputMonto" disabled>
           </div>
+
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" type="submit" data-dismiss="modal" onclick="prueba()">Aceptar</button>
+        <button class="btn btn-success" type="submit" data-dismiss="modal" onclick="agregarProducto()">Aceptar</button>
         <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
