@@ -420,7 +420,6 @@ router.post('/', async (req, res) => {
   // Si el tipo de comprobante es Boleta 
   else if (tipo_cmp == 2) {
 
-    console.log(req.body);
     // Se busca el id de la persona natural 
     let pe_nat_id = (await pool.query('SELECT pe_nat_id FROM persona_natural WHERE pe_nat_dni = ?', [req.body.documento]))[0].pe_nat_id;
 
@@ -478,8 +477,9 @@ router.post('/', async (req, res) => {
       await pool.query('INSERT INTO detalle_boleta SET ?', [newDetalle]);
 
     }
-  } else {
 
+  } else {
+    
   }
 
   // Mostrar la vista dashboard

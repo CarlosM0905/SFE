@@ -27,8 +27,6 @@ function seleccion(datos) {
   // Se obtiene la cantidad del input
   const cantidad = document.getElementById('inputCantidad').value;
 
-  
-
   // Se establece el valor al input precio
   $('#inputValor').val(precio);
   // Se establece el valor al input monto
@@ -145,6 +143,7 @@ function agregarProducto() {
 };
 
 function clean() {
+
   // Se limpian los input del form Agregar Producto
   document.getElementById('inputCantidad').value = "";
   document.getElementById('inputUnidad').value = "";
