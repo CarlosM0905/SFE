@@ -2,11 +2,11 @@ var contador = 1;
 
 function refresh(cantidad) {
 
-  if(document.getElementById('inputCantidad').value > document.getElementById('inputStock').value ){
-    document.getElementById('inputCantidad').value = document.getElementById('inputStock').value ;
+  if (document.getElementById('inputCantidad').value > document.getElementById('inputStock').value) {
+    document.getElementById('inputCantidad').value = document.getElementById('inputStock').value;
     cantidad = document.getElementById('inputStock').value;
   }
-  else if (document.getElementById('inputCantidad').value < 0){
+  else if (document.getElementById('inputCantidad').value < 0) {
     document.getElementById('inputCantidad').value = 0;
     cantidad = 0;
   }
@@ -23,7 +23,7 @@ function seleccion(datos) {
   let unidad_medida = datos.split('~')[3];
   let stock = datos.split('~')[4];
   let unidad_medida_id = datos.split('~')[5];
-  
+
   // Se obtiene la cantidad del input
   const cantidad = document.getElementById('inputCantidad').value;
 
@@ -31,14 +31,14 @@ function seleccion(datos) {
   $('#inputValor').val(precio);
   // Se establece el valor al input monto
   $("#inputMonto").val((cantidad * precio).toFixed(2));
-  document.getElementById('inputCantidad').setAttribute('max',stock);
+  document.getElementById('inputCantidad').setAttribute('max', stock);
   // Se establece el valor al input unidad medida
   $('#inputUnidad').val(unidad_medida);
   // Se establece el valor al input stock
   $('#inputStock').val(stock);
   // Se establece el valor al input unidad_medida_id
   $('#inputUnidadID').val(unidad_medida_id);
-  
+
 };
 
 function openDate() {
@@ -62,7 +62,7 @@ function agregarProducto() {
 
   // Celda Cantidad
   let cell1 = document.createElement('td');
-  cell1.setAttribute('id','')
+  cell1.setAttribute('id', '')
   let input1 = document.createElement('input');
   input1.name = 'cantidad';
   input1.value = cantidad;
@@ -121,7 +121,7 @@ function agregarProducto() {
   btn_delete.setAttribute('data-toggle', 'modal');
   btn_delete.setAttribute('data-target', '#deleteModal');
   btn_delete.setAttribute('onclick', 'borrar(this.parentNode.parentNode.parentNode, this.parentNode.parentNode)');
-  
+
   btn_delete.appendChild(i_delete);
   cell7.appendChild(btn_delete);
 

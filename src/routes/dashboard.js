@@ -21,6 +21,7 @@ router.get('/inventario', async (req, res) => {
   const u_med = await pool.query('SELECT umed_id, umed_nombre FROM unidad_medida');
 
   // Se muesta la vista inventario y se envian los objetos
+
   res.render('dashboard/inventario', {
     resultados,
     categorias,
@@ -481,7 +482,7 @@ router.post('/', async (req, res) => {
   } else {
     
   }
-
+  
   // Mostrar la vista dashboard
   res.redirect('/dashboard/');
 });
