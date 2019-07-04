@@ -3,10 +3,10 @@
 module.exports = {
 
     database: {
-        host: 'localhost',
-        user: 'root',
-        password: 'password',
-        database: 'mydb'
+        host: 'sql10.freesqldatabase.com',
+        user: 'sql10297548',
+        password: 'fLdaNKXM91',
+        database: 'sql10297548'
     }
 
 }
