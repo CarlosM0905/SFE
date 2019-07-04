@@ -1,5 +1,35 @@
 <!--Inicio de contenido-->
+
+
 <div class="container-fluid">
+
+  {{#if CustomerRegistered}}
+  <div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <h5 class="mt-2"><i class="fas fa-user-plus"></i> {{CustomerRegistered}}</h5>
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
+  </div>
+  {{/if}}
+
+  {{#if CustomerNotRegistered}}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <h5 class="mt-2"><i class="fas fa-user-plus"></i> {{CustomerNotRegistered}}</h5>
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
+  </div>
+  {{/if}}
+
+  {{#if NotExist}}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <h5 class="mt-2"><i class="fas fa-search"></i> {{NotExist}}</h5>
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
+  </div>
+  {{/if}}
+
   <!-- Cabecera de Pagina -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Factura Electrónica</h1>
@@ -507,7 +537,7 @@
       resultados.push(arr);
     }
     console.log(resultados);
-    doc.text('EMPRESA MELINNITA', 10, 10);
+    doc.text('EMPRESA INDUFER EIRL', 10, 10);
     doc.text('Av Amezaga 123 Urb. Urbanizacion', 10, 20);
     doc.line(118, 20, 190, 20, 'F');
     doc.line(118, 20, 118, 32, 'F');

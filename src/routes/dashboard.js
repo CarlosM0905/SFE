@@ -267,6 +267,7 @@ router.post('/factura', async (req, res) => {
       // Se consultan las unidades de medida
       const unidad_medida = await pool.query('SELECT * FROM unidad_medida');
 
+      req.flash('CustomerRegistered','Cliente registrado');
       // Se muestra la vista Factura y se envian los objetos
       res.render('dashboard/factura', {
         modo_pago,
@@ -276,20 +277,21 @@ router.post('/factura', async (req, res) => {
       });
     }
     else {
+      req.flash('CustomerNotRegistered','Cliente no registrado');
       res.redirect('/dashboard/factura');
     }
 
 
   }
   else {
+    req.flash('NotExist','Digite el campo del documento');
+
     res.redirect('/dashboard/factura');
   }
 });
 
 
 router.post('/boleta', async (req, res) => {
-
-  console.log(req.body);
 
   if (req.body.documento !== '') {
     // Se obtiene el documento del formulario
@@ -299,12 +301,10 @@ router.post('/boleta', async (req, res) => {
       documento
     } = req.body;
 
-    console.log(documento);
 
 
     // Se obtienen los datos de la persona natural
     const dat = await pool.query('SELECT pe_nat_id, pe_nat_nombres, pe_nat_apellidos, pe_nat_dni, pe_nat_direccion FROM persona_natural WHERE pe_nat_dni = ?', [documento]);
-    console.log(dat);
     if (Object.keys(dat).length !== 0) {
       // Se almacenan los datos en variables
       let id = dat[0].pe_nat_id;
@@ -339,11 +339,15 @@ router.post('/boleta', async (req, res) => {
       });
     }
     else {
+      req.flash('CustomerNotRegistered','Cliente no registrado');
+
       res.redirect('/dashboard/boleta');
     }
 
 
   } else {
+    req.flash('NotExist','Digite el campo del DNI');
+
     res.redirect('/dashboard/boleta');
   }
 

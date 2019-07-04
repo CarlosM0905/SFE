@@ -11,7 +11,7 @@ const {database} = require('./keys');
 const app = express();
 
 // settings
-// Establece un puerto (4000) si es que no hay uno en sistema
+// Establece un puerto (5000) si es que no hay uno en sistema
 app.set('port', process.env.PORT || 5000);
 
 // __dirname devuelve la direccion de la carpeta actual
@@ -61,6 +61,9 @@ app.use((req,res,next) =>{
     app.locals.CustomerDelete = req.flash('CustomerDelete');
     app.locals.NaturalPersonExist = req.flash('NaturalPersonExist');
     app.locals.LegalPersonExist = req.flash('LegalPersonExist');
+    app.locals.CustomerRegistered = req.flash('CustomerRegistered');
+    app.locals.CustomerNotRegistered = req.flash('CustomerNotRegistered');
+    app.locals.NotExist = req.flash('NotExist');
     next();
 });
 
