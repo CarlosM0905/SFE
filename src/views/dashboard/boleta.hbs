@@ -2,18 +2,10 @@
 <div class="container-fluid">
   <!-- Cabecera de Pagina -->
 
-{{#if CustomerRegistered}}
-  <div class="alert alert-primary alert-dismissible fade show" role="alert">
-    <h5 class="mt-2"><i class="fas fa-user-plus"></i> {{CustomerRegistered}}</h5>
-    <button type="button" class="close" data-dismiss="alert">
-      <span>&times;</span>
-    </button>
-  </div>
-  {{/if}}
 
   {{#if CustomerNotRegistered}}
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <h5 class="mt-2"><i class="fas fa-user-plus"></i> {{CustomerNotRegistered}}</h5>
+    <h6 class="mt-2"><i class="fas fa-user-minus"></i> {{CustomerNotRegistered}}</h6>
     <button type="button" class="close" data-dismiss="alert">
       <span>&times;</span>
     </button>
@@ -22,7 +14,7 @@
 
   {{#if NotExist}}
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <h5 class="mt-2"><i class="fas fa-search"></i> {{NotExist}}</h5>
+    <h6 class="mt-2"><i class="far fa-question-circle"></i> {{NotExist}}</h6>
     <button type="button" class="close" data-dismiss="alert">
       <span>&times;</span>
     </button>

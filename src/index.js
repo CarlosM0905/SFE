@@ -61,7 +61,6 @@ app.use((req,res,next) =>{
     app.locals.CustomerDelete = req.flash('CustomerDelete');
     app.locals.NaturalPersonExist = req.flash('NaturalPersonExist');
     app.locals.LegalPersonExist = req.flash('LegalPersonExist');
-    app.locals.CustomerRegistered = req.flash('CustomerRegistered');
     app.locals.CustomerNotRegistered = req.flash('CustomerNotRegistered');
     app.locals.NotExist = req.flash('NotExist');
     next();
@@ -74,13 +73,8 @@ app.use(require('./routes/'));
 // Usamos las archivos de la carpeta routes
 app.use(require('./routes/authentication'));
 
-
-// Enlaces de la aplicacion
-app.use('/links', require('./routes/links'));
-
 // Enlaces SFE
 app.use('/dashboard', require('./routes/dashboard'));
-
 
 // Public
 // La carpeta public se encuentra en src/public

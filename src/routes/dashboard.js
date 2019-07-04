@@ -267,7 +267,6 @@ router.post('/factura', async (req, res) => {
       // Se consultan las unidades de medida
       const unidad_medida = await pool.query('SELECT * FROM unidad_medida');
 
-      req.flash('CustomerRegistered','Cliente registrado');
       // Se muestra la vista Factura y se envian los objetos
       res.render('dashboard/factura', {
         modo_pago,
@@ -284,7 +283,7 @@ router.post('/factura', async (req, res) => {
 
   }
   else {
-    req.flash('NotExist','Digite el campo del documento');
+    req.flash('NotExist','Digite el campo del RUC para hacer la busqueda');
 
     res.redirect('/dashboard/factura');
   }
