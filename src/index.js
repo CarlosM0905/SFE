@@ -42,7 +42,6 @@ app.use(session({
     secret: 'CarlosRodriguez98',
     resave : false,
     saveUninitialized : false,
-    store: new mysqlStore(database)
 }));
 app.use(flash());
 // Muestra un mensaje en consola debido a las peticiones HTTP

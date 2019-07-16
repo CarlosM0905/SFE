@@ -17,7 +17,7 @@ router.get('/inventario', async (req, res) => {
 
   // Se solicita a la bd las categorias, los productos y las unidades de medida
   const categorias = await pool.query('SELECT cat_id, cat_tipo FROM categoria');
-  const resultados = await pool.query('SELECT * FROM producto INNER JOIN categoria ON producto.cat_id = categoria.cat_id INNER JOIN unidad_medida ON producto.umed_id = unidad_medida.umed_id;');
+  const resultados = await pool.query('SELECT * FROM vista_inventario;');
   const u_med = await pool.query('SELECT umed_id, umed_nombre FROM unidad_medida');
 
   // Se muesta la vista inventario y se envian los objetos
@@ -34,7 +34,7 @@ router.get('/inventario', async (req, res) => {
 router.get('/clientes', async (req, res) => {
 
   // Se solicitan a la bd tanto los clientes juridicos como naturales
-  const results = await pool.query('SELECT pe_jur_ruc, pe_jur_razon_social, pe_jur_direccion, pe_jur_email FROM persona_juridica UNION SELECT pe_nat_dni,CONCAT(pe_nat_nombres , " ", pe_nat_apellidos), pe_nat_direccion, pe_nat_email FROM persona_natural');
+  const results = await pool.query('SELECT * FROM vista_clientes ');
 
   // Se muestra la vista clientes y se envia el objeto results
   res.render('dashboard/clientes', {
